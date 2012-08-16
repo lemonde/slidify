@@ -36,7 +36,7 @@
 	</div>
 	
 	<script>
-	require(["vaseline", "plugins/buttons", "effects/fade"], function(Slider, Buttons, Fade)
+	require(["vaseline", "effects/fade", "plugins/buttons", "plugins/touch"], function(Slider, Fade, Buttons, Touch)
 	{		
 		var slider = new Slider({
 			wrapper: ".vaseline .slider",
@@ -45,6 +45,7 @@
 		});
 		
 		slider.plug(new Buttons);
+		slider.plug(new Touch);
 		slider.init();
 	});
 	</script>
