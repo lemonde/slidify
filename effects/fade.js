@@ -1,4 +1,4 @@
-define(["$"], function($)
+define(["lib/zepto"], function($)
 {
 	"use strict";
 	
@@ -14,17 +14,16 @@ define(["$"], function($)
 
 		animate : function(slider, callback)
 		{
-			$(slider.currentSlide.item).show().css("opacity", 1);
-			$(slider.currentSlide.item).show().css("opacity", 0.01);
+			slider.lastSlide.item.show().css("opacity", 1);
+			slider.currentSlide.item.show().css("opacity", 0.01);
 			
-			$(slider.lastSlide.item).animate({opacity: 0}, {
+			slider.lastSlide.item.animate({opacity: 0}, {
 				duration: this.fadeOutDuration,
 				complete : function()
 				{
-					$(slider.currentSlide.item).animate({opacity: 1}, {duration: this.fadeInDuration, complete: callback});
+					slider.currentSlide.item.animate({opacity: 1}, {duration: this.fadeInDuration, complete: callback});
 				}
 			});
-			//
 		}
 	};
 

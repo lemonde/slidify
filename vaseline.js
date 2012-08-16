@@ -1,6 +1,6 @@
 /*! vaseline v0.1 lemonde.fr */
 
-define(["$"], function($) {
+define(["lib/zepto"], function($) {
 
 	return (function ($, window, document, undefined) {
 
@@ -76,6 +76,8 @@ define(["$"], function($) {
 					}
 				}
 				
+				this.wrapper.html('');
+				
 				// Move to start Index
 				this.move(this.options.startIndex);
 
@@ -95,12 +97,13 @@ define(["$"], function($) {
 					this.currentIndex = index;
 					this.currentSlide = this.slides[index];
 					
-					this.trigger("move");
-
 					// Set in progress to prevent other move
 					this.progress = true;
 					
-					this.render(this.currentSlide);
+					this.currentSlide.item = $(this.render(this.currentSlide.data));
+					this.currentSlide.item.appendTo(this.wrapper);
+					
+					this.trigger("move");
 					
 					if(!this.lastSlide)
 						this._completeMove();
@@ -115,9 +118,9 @@ define(["$"], function($) {
 				this.progress = false;
 			},
 			
-			render : function(slide)
+			render : function(data)
 			{
-				slide.item = slide.data;
+				return data;
 			},
 
 			next : function ()

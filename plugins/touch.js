@@ -1,4 +1,4 @@
-define(["$"], function($)
+define(["lib/zepto"], function($)
 {
 	"use strict";
 
