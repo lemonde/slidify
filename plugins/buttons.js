@@ -15,8 +15,8 @@ define(["lib/zepto"], function($)
 		attachTo : function(slider)
 		{
 			this.slider = slider;
-			this.previous = $(this.previous);
-			this.next = $(this.next);
+			this.previous = $(this.previous, this.slider.root);
+			this.next = $(this.next, this.slider.root);
 
 			this.next.on("click", function() {
 				slider.next();
@@ -34,14 +34,19 @@ define(["lib/zepto"], function($)
 			if(this.slider.options.loop === false)
 			{
 				if(this.slider.currentIndex === this.slider.slides.length - 1)
-				this.next.hide();
+				   this.next.hide();
 				else
-				this.next.show();
+				   this.next.show();
 
 				if(this.slider.currentIndex === 0)
-				this.previous.hide();
+				   this.previous.hide();
 				else
-				this.previous.show();
+				   this.previous.show();
+			}
+			else
+			{
+			   this.next.show();
+			   this.previous.show();
 			}
 		}
 	};

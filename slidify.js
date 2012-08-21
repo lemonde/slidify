@@ -7,22 +7,27 @@ define(["lib/zepto"], function($) {
 		"use strict";
 
 		// Defaults parameters
-		var defaults = {
+		var defaultsOptions = {
 			data: [], // Data
 			delay: 5000, // Time between slides in ms
 			loop: false, // Loop mode
 			startIndex: 0, // First slide
 			effect: null, // Effect
-			wrapper: null // Wrapper
+			wrapper: null, // Wrapper
+			root: null // Root element
 		};
+		
+		var Slide = function(data)
+      {
+         this.data = data;
+         this.item = null;
+      };
 
 		//  constructor
 		var Slider = function (options)
 		{
-			var closure = this;
-
 			// Default Options
-			this.options = $.extend(defaults, options);
+			this.options = $.extend(defaultsOptions, options);
 
 			// slider is not in progress by default
 			this.progress = false;
@@ -39,29 +44,26 @@ define(["lib/zepto"], function($) {
 			this.lastItem = null;
 
 			// Define wrapper object
-			this.wrapper = $(this.options.wrapper);
+			this.root = $(this.options.root);
+			this.wrapper = $(this.options.wrapper, this.root);
 
 			// Map events
 			this.on = $.proxy(this.wrapper.on, this.wrapper);
 			this.one = $.proxy(this.wrapper.one, this.wrapper);
 			this.off = $.proxy(this.wrapper.off, this.wrapper);
-
-			// Trigger with slider
-			this.trigger = function(event, data) {
-				if (typeof event == 'string') event = $.Event(event);
-				event.slider = closure;
-				return closure.wrapper.trigger(event, data);
-			}
 		};
 
 		// !Prototype with API & Private Methode
 		Slider.prototype = {
+		      
+		   trigger : function(event, data)
+		   {
+		      if (typeof event == 'string') event = $.Event(event);
+            event.slider = this;
+            return this.wrapper.trigger(event, data);
+		   },
 
 			init : function() {
-
-				var closure = this;
-
-				// Init slides (html OR data)
 
 				this.slides = [];
 
@@ -83,11 +85,40 @@ define(["lib/zepto"], function($) {
 
 				this.trigger("init");
 			},
+			
+			/**
+			 * Get a slide relatively to the current index
+			 * getRelativeSlide(1)
+			 * getRelativeSlide(0)
+			 * getRelativeSlide(-1)
+			 */
+			getRelativeSlide : function(relativeIndex)
+			{
+			   var computedIndex = this.currentIndex + relativeIndex;
+			   
+			   if(computedIndex > this.slides.length - 1)
+			   {
+			      computedIndex -= this.slides.length;
+               this.getRelativeSlide(computedIndex);
+			   }
+			   
+			   if(computedIndex < 0)
+            {
+			      computedIndex += this.slides.length;
+               this.getRelativeSlide(computedIndex);
+            }
+			   
+			   return this.slides[computedIndex];
+			},
+			
+			attachSlide : function(slide)
+			{
+			   slide.item = $(this.render(slide.data));
+			   slide.item.appendTo(this.wrapper);
+			},
 
 			move : function (index, forward)
 			{
-				var closure = this;
-				
 				// If inProgress flag is not set & not already on requested slide
 				if (!this.progress && index !== this.currentIndex)
 				{
@@ -100,20 +131,22 @@ define(["lib/zepto"], function($) {
 					// Set in progress to prevent other move
 					this.progress = true;
 					
-					this.currentSlide.item = $(this.render(this.currentSlide.data));
-					this.currentSlide.item.appendTo(this.wrapper);
+					this.attachSlide(this.currentSlide);
 					
 					this.trigger("move");
+					
+					this.options.effect.init(this);
 					
 					if(!this.lastSlide)
 						this._completeMove();
 					else
-						this.options.effect.animate(this, $.proxy(this._completeMove, this));
+						this.options.effect.animate(this, forward, $.proxy(this._completeMove, this));
 				}
 			},
 			
 			_completeMove : function()
 			{
+			   this.options.effect.end(this);
 				this.trigger("move_complete");
 				this.progress = false;
 			},
@@ -166,12 +199,6 @@ define(["lib/zepto"], function($) {
 				plugin.attachTo(this);
 			}
 
-		};
-
-		var Slide = function(data)
-		{
-			this.data = data;
-			this.item = null;
 		};
 
 		return Slider;
