@@ -6,6 +6,7 @@ define(["lib/zepto"], function($)
 	{
 		this.previous = ".previous-button";
 		this.next = ".next-button";
+		this.preventDefault = true;
 
 		$.extend(this, options);
 	};
@@ -14,19 +15,28 @@ define(["lib/zepto"], function($)
 
 		attachTo : function(slider)
 		{
+		   var closure = this;
+		   
 			this.slider = slider;
 			this.previous = $(this.previous, this.slider.root);
 			this.next = $(this.next, this.slider.root);
 
-			this.next.on("click", function() {
+			this.next.on("click", function(e) {
 				slider.next();
+				
+				if(closure.preventDefault)
+				   e.preventDefault();
 			});
 
-			this.previous.on("click", function() {
+			this.previous.on("click", function(e) {
 				slider.previous();
+				
+				if(closure.preventDefault)
+               e.preventDefault();
 			});
 
 			slider.on("move", $.proxy(this._checkButtonDisplay, this));
+			slider.on("init", $.proxy(this._checkButtonDisplay, this));
 		},
 
 		_checkButtonDisplay : function()

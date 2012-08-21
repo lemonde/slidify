@@ -14,11 +14,11 @@ define(["lib/zepto"], function($)
 	      
 	   init : function(slider)
 	   {
-	      
+	      slider.attachSlide(slider.currentSlide);
 	   },
 
 		animate : function(slider, forward, callback)
-		{	
+		{
 		   slider.lastSlide.item.show().css("opacity", 1);
          slider.currentSlide.item.show().css("opacity", 0.01);
          
@@ -33,7 +33,6 @@ define(["lib/zepto"], function($)
 	   
 	   end : function(slider)
 	   {
-	      
 	   }
 	};
 

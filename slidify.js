@@ -6,28 +6,27 @@ define(["lib/zepto"], function($) {
 
 		"use strict";
 
-		// Defaults parameters
-		var defaultsOptions = {
-			data: [], // Data
-			delay: 5000, // Time between slides in ms
-			loop: false, // Loop mode
-			startIndex: 0, // First slide
-			effect: null, // Effect
-			wrapper: null, // Wrapper
-			root: null // Root element
-		};
-		
-		var Slide = function(data)
+      var Slide = function(data)
       {
          this.data = data;
          this.item = null;
       };
 
-		//  constructor
-		var Slider = function (options)
-		{
-			// Default Options
-			this.options = $.extend(defaultsOptions, options);
+      //  constructor
+      var Slider = function (options)
+      {
+         this.options = {
+            data: [], // Data
+            delay: 5000, // Time between slides in ms
+            loop: false, // Loop mode
+            startIndex: 0, // First slide
+            effect: null, // Effect
+            wrapper: null, // Wrapper
+            root: null // Root element
+         };
+         
+         // Default Options
+         this.options = $.extend(this.options, options);
 
 			// slider is not in progress by default
 			this.progress = false;
@@ -113,9 +112,14 @@ define(["lib/zepto"], function($) {
 			
 			attachSlide : function(slide)
 			{
-			   slide.item = $(this.render(slide.data));
+			   this.renderSlide(slide);
 			   slide.item.appendTo(this.wrapper);
 			},
+			
+			renderSlide : function(slide)
+         {
+            slide.item = $(this.render(slide.data));
+         },
 
 			move : function (index, forward)
 			{
@@ -131,7 +135,7 @@ define(["lib/zepto"], function($) {
 					// Set in progress to prevent other move
 					this.progress = true;
 					
-					this.attachSlide(this.currentSlide);
+					this.renderSlide(this.currentSlide);
 					
 					this.trigger("move");
 					

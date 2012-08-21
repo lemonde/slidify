@@ -11,42 +11,79 @@
 	</script>
 	
 	<style type="text/css">
+   .slidify.slide{
+      width: 1024px;
+      height: 384px;
+      position: relative;
+      overflow: hidden;
+   }
 	.slider{
 		width: 512px;
 		height: 384px;
 	}
+   
 	.slider li{
 		list-style-type: none;
 		float: left;
-		position: absolute;
 	}
+   
+   .slidify.fade .slider li{
+      list-style-type: none;
+      float: left;
+      position: absolute;
+   }
 	</style>
 </head>
 <body>
-	<div class="vaseline">
+
+   <div class="slidify slide">
+      <ul class="slider">
+         <li><img src="images/1.jpg" width="512" height="384"></li>
+         <li><img src="images/2.jpg" width="512" height="384"></li>
+         <li><img src="images/3.jpg" width="512" height="384"></li>
+         <li><img src="images/4.jpg" width="512" height="384"></li>
+         <li><img src="images/5.jpg" width="512" height="384"></li>
+      </ul>
+      <a href="#" class="previous-button">Previous</a>
+      <a href="#" class="next-button">Next</a>
+   </div>
+   
+	<div class="slidify fade">
 		<ul class="slider">
 			<li><img src="images/1.jpg" width="512" height="384"></li>
-			<li style="display:none"><img src="images/2.jpg" width="512" height="384"></li>
-			<li style="display:none"><img src="images/3.jpg" width="512" height="384"></li>
-			<li style="display:none"><img src="images/4.jpg" width="512" height="384"></li>
-			<li style="display:none"><img src="images/5.jpg" width="512" height="384"></li>
+			<li><img src="images/2.jpg" width="512" height="384"></li>
+			<li><img src="images/3.jpg" width="512" height="384"></li>
+			<li><img src="images/4.jpg" width="512" height="384"></li>
+			<li><img src="images/5.jpg" width="512" height="384"></li>
 		</ul>
 		<a href="#" class="previous-button">Previous</a>
 		<a href="#" class="next-button">Next</a>
 	</div>
 	
 	<script>
-	require(["vaseline", "effects/fade", "plugins/buttons", "plugins/touch"], function(Slider, Fade, Buttons, Touch)
+	require(["slidify", "effects/slide", "plugins/buttons", "plugins/touch", "effects/fade"], function(Slider, Slide, Buttons, Touch, Fade)
 	{		
 		var slider = new Slider({
-			wrapper: ".vaseline .slider",
-			data : $('.vaseline .slider li'),
+		   root: ".slidify.fade",
+			wrapper: ".slider",
+			data : $('.slidify.fade .slider li'),
 			effect : new Fade
 		});
 		
 		slider.plug(new Buttons);
 		slider.plug(new Touch);
 		slider.init();
+		
+		var slider2 = new Slider({
+         root: ".slidify.slide",
+         wrapper: ".slider",
+         data : $('.slidify.slide .slider li'),
+         effect : new Slide
+      });
+      
+      slider2.plug(new Buttons);
+      slider2.plug(new Touch);
+      slider2.init();
 	});
 	</script>
 </body>

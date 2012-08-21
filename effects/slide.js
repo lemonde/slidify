@@ -4,8 +4,6 @@ define(["lib/zepto"], function($)
 	
 	var Slide = function(options)
 	{
-		this.container = $('.portfolio_slider.une'); // to pass
-
 		$.extend(this, options);
 	};
 
@@ -13,12 +11,27 @@ define(["lib/zepto"], function($)
 	      
 	   init : function(slider)
 	   {
-	      
+	      if(typeof this.container !== "undefined")
+	         this.container = $(this.container);
+	      else
+	         this.container = slider.root;
+	   },
+	   
+	   getSlideWidth : function(slider)
+	   {
+	      if(typeof this.slideWidth !== "undefined")
+	      {
+	         return this.slideWidth;
+	      }
+	      else
+	      {
+	         return slider.currentSlide.item.width();
+	      }
 	   },
 	   
 		animate : function(slider, forward, callback)
 		{  
-		   var slideWidth = slider.currentSlide.item.width(),
+		   var slideWidth = this.getSlideWidth(slider),
 		       computedWidth = parseInt(slider.wrapper.css("left")) - slideWidth;
 		   
 		   if(!forward)
@@ -39,7 +52,7 @@ define(["lib/zepto"], function($)
          slider.attachSlide(slider.getRelativeSlide(1));
          slider.attachSlide(slider.getRelativeSlide(2));
          
-         var slideWidth = slider.currentSlide.item.width(),
+         var slideWidth = this.getSlideWidth(slider),
              containerWidth = this.container.width();
          
          slider.wrapper.width(slideWidth * 5);
