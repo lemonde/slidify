@@ -39,5 +39,5 @@ Written and maintained by [Ludowic Werwinski][ludow], [Greg Bergé][neoziro].
 
 Build an used on [Le Monde.fr](http://www.lemonde.fr).
 
-[neoziro]: http://github.com/ludow
+[ludow]: http://github.com/ludow
 [neoziro]: http://github.com/neoziro
