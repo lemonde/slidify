@@ -1,7 +1,7 @@
 slidify
 =======
 
-Slidify is a slideshow written in javascript and based on zepto / jQuery and AMD / CommonJS modules. It's light, we can add some plugins, some effects very easyly.
+Slidify is a slideshow written in javascript and based on zepto / jQuery and AMD / CommonJS modules. It's light, we can add some plugins, some effects very easily.
 
 How to use it ?
 ---------------
@@ -24,7 +24,7 @@ require(["slidify", "effects/slide", "plugins/buttons"], function(Slider, Slide,
 License
 =======
 
-Copyright (c) 2012 Bergé Greg
+Copyright (c) 2012 Le Monde
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -39,5 +39,5 @@ Written and maintained by [Ludowic Werwinski][ludow], [Greg Bergé][neoziro].
 
 Build an used on [Le Monde.fr](http://www.lemonde.fr).
 
-[neoziro]: http://github.com/ludow
+[ludow]: http://github.com/ludow
 [neoziro]: http://github.com/neoziro
