@@ -12,15 +12,10 @@ define(["lib/zepto"], function($)
 
 	Fade.prototype = {
 	      
-	   init : function(slider)
-	   {
-	      slider.attachSlide(slider.currentSlide);
-	   },
-
 		animate : function(slider, forward, callback)
 		{
-		   slider.lastSlide.item.show().css("opacity", 1);
-         slider.currentSlide.item.show().css("opacity", 0.01);
+		   slider.lastSlide.item.show().css("opacity", 1).css("position", "absolute");
+         slider.currentSlide.item.show().css("opacity", 0.01).css("position", "absolute");
          
 			slider.lastSlide.item.animate({opacity: 0}, {
 				duration: this.fadeOutDuration,
@@ -29,11 +24,7 @@ define(["lib/zepto"], function($)
 					slider.currentSlide.item.animate({opacity: 1}, {duration: this.fadeInDuration, complete: callback});
 				}
 			});
-		},
-	   
-	   end : function(slider)
-	   {
-	   }
+		}
 	};
 
 	return Fade;

@@ -8,14 +8,6 @@ define(["lib/zepto"], function($)
 	};
 
 	Slide.prototype = {
-	      
-	   init : function(slider)
-	   {
-	      if(typeof this.container !== "undefined")
-	         this.container = $(this.container);
-	      else
-	         this.container = slider.root;
-	   },
 	   
 	   getSlideWidth : function(slider)
 	   {
@@ -31,35 +23,36 @@ define(["lib/zepto"], function($)
 	   
 		animate : function(slider, forward, callback)
 		{  
+		   if(typeof this.container !== "undefined")
+            this.container = $(this.container);
+         else
+            this.container = slider.root;
+		   
 		   var slideWidth = this.getSlideWidth(slider),
-		       computedWidth = parseInt(slider.wrapper.css("left")) - slideWidth;
+         containerWidth = this.container.width();
+         
+         slider.attachedSlides().show().css("float", "left");
+         slider.wrapper.css("position", "absolute");
+         slider.wrapper.width(slideWidth * 5);
+         
+         var initLeft = - (slideWidth - (containerWidth - slideWidth) / 2);
+         
+         if(!forward)
+         {
+            initLeft = - (slideWidth*3 - (containerWidth - slideWidth) / 2);
+         }
+         
+         slider.wrapper.css("left", initLeft);
+         
+		   var animLeft = parseInt(slider.wrapper.css("left")) - slideWidth;
 		   
 		   if(!forward)
 		   {
-		      computedWidth = parseInt(slider.wrapper.css("left")) + slideWidth;
+		      animLeft = parseInt(slider.wrapper.css("left")) + slideWidth;
 		   }
 		   
-			slider.wrapper.animate({left: computedWidth}, {duration: 300, complete: callback});
-		},
-		
-		end : function(slider)
-      {
-         slider.wrapper.html('');
-         
-         slider.attachSlide(slider.getRelativeSlide(-2));
-         slider.attachSlide(slider.getRelativeSlide(-1));
-         slider.attachSlide(slider.currentSlide);
-         slider.attachSlide(slider.getRelativeSlide(1));
-         slider.attachSlide(slider.getRelativeSlide(2));
-         
-         var slideWidth = this.getSlideWidth(slider),
-             containerWidth = this.container.width();
-         
-         slider.wrapper.width(slideWidth * 5);
-         
-         slider.wrapper.css("position", "absolute");
-         slider.wrapper.css("left", - (slideWidth*2 - (containerWidth - slideWidth) / 2));
-      }
+			slider.wrapper.animate({left: animLeft}, {duration: 400, complete: callback});
+		}
 	};
 
 	return Slide;

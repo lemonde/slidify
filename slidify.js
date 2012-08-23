@@ -18,7 +18,7 @@ define(["lib/zepto"], function($) {
          this.options = {
             data: [], // Data
             delay: 5000, // Time between slides in ms
-            loop: false, // Loop mode
+            loop: true, // Loop mode
             startIndex: 0, // First slide
             effect: null, // Effect
             wrapper: null, // Wrapper
@@ -50,6 +50,8 @@ define(["lib/zepto"], function($) {
 			this.on = $.proxy(this.wrapper.on, this.wrapper);
 			this.one = $.proxy(this.wrapper.one, this.wrapper);
 			this.off = $.proxy(this.wrapper.off, this.wrapper);
+			
+			this.currentEffect = null;
 		};
 
 		// !Prototype with API & Private Methode
@@ -132,27 +134,50 @@ define(["lib/zepto"], function($) {
 					this.currentIndex = index;
 					this.currentSlide = this.slides[index];
 					
-					// Set in progress to prevent other move
 					this.progress = true;
 					
-					this.renderSlide(this.currentSlide);
+					if(typeof this.options.effect.length !== "undefined" && this.options.effect.length > 0)
+					   this.currentEffect = this.options.effect[Math.floor(Math.random()*this.options.effect.length)];
+					else
+					   this.currentEffect = this.options.effect;
 					
 					this.trigger("move");
 					
-					this.options.effect.init(this);
+					this.clear();
+	            this.attachSlide(this.getRelativeSlide(-2));
+	            this.attachSlide(this.getRelativeSlide(-1));
+	            this.attachSlide(this.currentSlide);
+	            this.attachSlide(this.getRelativeSlide(1));
+	            this.attachSlide(this.getRelativeSlide(2));
+	            
+	            this.attachedSlides().hide();
+	            this.currentSlide.item.show();
 					
 					if(!this.lastSlide)
 						this._completeMove();
 					else
-						this.options.effect.animate(this, forward, $.proxy(this._completeMove, this));
+					{
+					   this.currentEffect.animate(this, forward, $.proxy(this._completeMove, this));
+					}
 				}
+			},
+			
+			attachedSlides : function()
+			{
+			   return this.wrapper.children();
+			},
+			
+			clear : function()
+			{
+			   this.wrapper.html("");
+			   this.wrapper.attr("style", "");
+			   this.attachedSlides().attr("style", "");
 			},
 			
 			_completeMove : function()
 			{
-			   this.options.effect.end(this);
+            this.progress = false;
 				this.trigger("move_complete");
-				this.progress = false;
 			},
 			
 			render : function(data)

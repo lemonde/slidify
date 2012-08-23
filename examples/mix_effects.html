@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
 <head>
-	<script src="lib/require.js"></script>
+	<script src="../lib/require.js"></script>
 	<script>
 	require.config({
+	    baseUrl: "../",
 	    paths: {
-	        /*"lib/zepto": "lib/jquery"*/ // Test on jQuery
+	       
+	      /*"lib/zepto": "lib/jquery"*/ // Test on jQuery
 	    }
 	  });
 	</script>
@@ -29,8 +31,6 @@
 	}
    
    .slidify.fade .slider li{
-      list-style-type: none;
-      float: left;
       position: absolute;
    }
 	</style>
