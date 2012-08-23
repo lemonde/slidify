@@ -12,7 +12,7 @@ define(["lib/zepto"], function($)
 
 	Fade.prototype = {
 	      
-	   init : function(slider, backward)
+	   start : function(slider, backward)
 	   {
 	      
 	   },

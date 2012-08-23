@@ -152,7 +152,7 @@ define(["lib/zepto"], function($) {
 					
 					this.clear();
 					
-					if(backward)
+					if(!backward)
 					   this.detachSlide(this.getRelativeSlide(-3));
 					else
 					   this.detachSlide(this.getRelativeSlide(3));
@@ -171,10 +171,9 @@ define(["lib/zepto"], function($) {
 	            
 	            this.trigger("move");
 	            
-	            this.currentEffect.init(this, backward);
-					
 					if(!this.lastSlide)
 					{
+					   this.currentEffect.start(this);
 						this._completeMove();
 					}
 					else
@@ -211,10 +210,10 @@ define(["lib/zepto"], function($) {
 				// If on final slide, loop back to first slide
 				if (this.currentIndex === this.slides.length - 1) {
 					if (this.options.loop === true)
-					this.move(0, true);
+					this.move(0, false);
 				}
 				else
-				this.move(this.currentIndex + 1, true);
+				this.move(this.currentIndex + 1, false);
 			},
 
 			previous : function ()
@@ -222,10 +221,10 @@ define(["lib/zepto"], function($) {
 				// If on first slide, loop round to final slide
 				if (this.currentIndex == 0) {
 					if (this.options.loop === true)
-					this.move(this.slides.length - 1, false);
+					this.move(this.slides.length - 1, true);
 				}
 				else
-				this.move(this.currentIndex - 1, false);
+				this.move(this.currentIndex - 1, true);
 			},
 
 			play: function ()

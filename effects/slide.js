@@ -5,57 +5,77 @@ define(["lib/zepto"], function($)
 	var Slide = function(options)
 	{
 		$.extend(this, options);
+		
+		this.initialized = false;
 	};
 
 	Slide.prototype = {
 	      
-	   init : function(slider, backward)
+	   initialize : function(slider)
 	   {
+	      if(this.initialized)
+	         return ;
+	      
 	      if(typeof this.container !== "undefined")
             this.container = $(this.container);
          else
             this.container = slider.root;
 	      
-	      var slideWidth = this.getSlideWidth(slider),
-         containerWidth = this.container.width();
-         
-         slider.attachedSlides().show().css("float", "left");
-         slider.wrapper.css("position", "absolute");
-         slider.wrapper.width(slideWidth * 5);
-         
-         var initLeft = - (slideWidth - (containerWidth - slideWidth) / 2);
-         
-         if(!backward)
-         {
-            initLeft = - (slideWidth*2 - (containerWidth - slideWidth) / 2);
-         }
-         
-         slider.wrapper.css("left", initLeft);
+	      this.slider = slider;
+	      
+	      this.initialized = true;
 	   },
 	   
-	   getSlideWidth : function(slider)
+	   gotoSlideIndex : function(index)
+      {
+         var slideWidth = this.getSlideWidth(),
+         containerWidth = this.container.width();
+         
+         this.slider.attachedSlides().show().css("float", "left");
+         this.slider.wrapper.css("position", "absolute");
+         this.slider.wrapper.width(slideWidth * 5);
+         
+         var initLeft = - (slideWidth*(index+2) - (containerWidth - slideWidth) / 2);
+         
+         this.slider.wrapper.css("left", initLeft);
+      },
+         
+      getSlideWidth : function()
+      {
+         if(typeof this.slideWidth !== "undefined")
+         {
+            return this.slideWidth;
+         }
+         else
+         {
+            return this.slider.currentSlide.item.width();
+         }
+      },
+	   
+	   start : function(slider)
 	   {
-	      if(typeof this.slideWidth !== "undefined")
-	      {
-	         return this.slideWidth;
-	      }
-	      else
-	      {
-	         return slider.currentSlide.item.width();
-	      }
+	      this.initialize(slider);
+	      this.gotoSlideIndex(0);
 	   },
 	   
 		animate : function(slider, backward, callback)
 		{  
-		   var slideWidth = this.getSlideWidth(slider),
-		       animLeft = parseInt(slider.wrapper.css("left")) - slideWidth;
+		   this.initialize(slider);
 		   
-		   if(!backward)
+         if(backward)
+            this.gotoSlideIndex(1);
+         else
+            this.gotoSlideIndex(-1);
+         
+         var slideWidth = this.getSlideWidth(),
+             animLeft = parseInt(this.slider.wrapper.css("left")) - slideWidth;
+		   
+		   if(backward)
 		   {
-		      animLeft = parseInt(slider.wrapper.css("left")) + slideWidth;
+		      animLeft = parseInt(this.slider.wrapper.css("left")) + slideWidth;
 		   }
 		   
-			slider.wrapper.animate({left: animLeft}, {duration: 400, complete: callback});
+			this.slider.wrapper.animate({left: animLeft}, {duration: 400, complete: callback});
 		}
 	};
 
