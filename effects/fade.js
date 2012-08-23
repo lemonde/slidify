@@ -12,7 +12,12 @@ define(["lib/zepto"], function($)
 
 	Fade.prototype = {
 	      
-		animate : function(slider, forward, callback)
+	   init : function(slider, backward)
+	   {
+	      
+	   },
+	   
+		animate : function(slider, backward, callback)
 		{
 		   slider.lastSlide.item.show().css("opacity", 1).css("position", "absolute");
          slider.currentSlide.item.show().css("opacity", 0.01).css("position", "absolute");

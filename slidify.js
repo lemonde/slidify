@@ -118,13 +118,22 @@ define(["lib/zepto"], function($) {
 			   slide.item.appendTo(this.wrapper);
 			},
 			
+			detachSlide : function (slide)
+			{
+			   if(slide.item)
+			      slide.item.remove();
+			},
+			
 			renderSlide : function(slide)
          {
-            slide.item = $(this.render(slide.data));
+			   if(!slide.item)
+			      slide.item = $(this.render(slide.data));
          },
 
-			move : function (index, forward)
+			move : function (index, backward)
 			{
+			   backward = typeof backward !== "undefined" && backward;
+			   
 				// If inProgress flag is not set & not already on requested slide
 				if (!this.progress && index !== this.currentIndex)
 				{
@@ -141,23 +150,36 @@ define(["lib/zepto"], function($) {
 					else
 					   this.currentEffect = this.options.effect;
 					
-					this.trigger("move");
-					
 					this.clear();
+					
+					if(backward)
+					   this.detachSlide(this.getRelativeSlide(-3));
+					else
+					   this.detachSlide(this.getRelativeSlide(3));
+					
 	            this.attachSlide(this.getRelativeSlide(-2));
 	            this.attachSlide(this.getRelativeSlide(-1));
 	            this.attachSlide(this.currentSlide);
 	            this.attachSlide(this.getRelativeSlide(1));
 	            this.attachSlide(this.getRelativeSlide(2));
 	            
-	            this.attachedSlides().hide();
+	            this.getRelativeSlide(-2).item.hide();
+	            this.getRelativeSlide(-1).item.hide();
+	            this.getRelativeSlide(1).item.hide();
+	            this.getRelativeSlide(2).item.hide();
 	            this.currentSlide.item.show();
+	            
+	            this.trigger("move");
+	            
+	            this.currentEffect.init(this, backward);
 					
 					if(!this.lastSlide)
+					{
 						this._completeMove();
+					}
 					else
 					{
-					   this.currentEffect.animate(this, forward, $.proxy(this._completeMove, this));
+					   this.currentEffect.animate(this, backward, $.proxy(this._completeMove, this));
 					}
 				}
 			},
@@ -169,7 +191,6 @@ define(["lib/zepto"], function($) {
 			
 			clear : function()
 			{
-			   this.wrapper.html("");
 			   this.wrapper.attr("style", "");
 			   this.attachedSlides().attr("style", "");
 			},
