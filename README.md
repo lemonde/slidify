@@ -1,7 +1,7 @@
 slidify
 =======
 
-Slidify is a slideshow written in javascript and based on zepto / jQuery and AMD / CommonJS modules. It's light, we can add some plugins, some effects very easily.
+Slidify is a slideshow written in JavaScript and based on zepto / jQuery and AMD / CommonJS modules. It's light, we can add some plugins, some effects very easily.
 
 How to use it ?
 ---------------
@@ -11,9 +11,9 @@ require(["slidify", "effects/slide", "plugins/buttons"], function(Slider, Slide,
   {		
 		var slider = new Slider({
 		   root: ".slidify",
-			 wrapper: ".slider",
-			 data : $('.slidify .slider li'),
-			 effect : new Slide
+	           wrapper: ".slider",
+		   data : $('.slidify .slider li'),
+		   effect : new Slide
 		});
 		
 		slider.plug(new Buttons);
