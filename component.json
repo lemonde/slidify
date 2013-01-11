@@ -1,0 +1,7 @@
+{
+  "name": "slidify",
+  "version": "0.2",
+  "dependencies": {
+    "zepto": "latest"
+  }
+}
