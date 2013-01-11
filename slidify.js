@@ -2,37 +2,37 @@
 
 (function(window, undefined) {
 
-	var build = function($) {
-		var slidify = {};
+  var build = function($) {
+    var slidify = {};
 
-		slidify.Slider = function(options) {
-			this.options = {
-				data: [], // JSON data or DOM objects
-				delay: 5000, // Time between slides in ms
-				loop: true, // Loop mode
-				startIndex: 0, // Start slide index
-				effect: null, // Effect
-				wrapper: null, // Wrapper
-				root: null // Root element
-			};
+    slidify.Slider = function(options) {
+      this.options = {
+        data: [], // JSON data or DOM objects
+        delay: 5000, // Time between slides in ms
+        loop: true, // Loop mode
+        startIndex: 0, // Start slide index
+        effect: null, // Effect
+        wrapper: null, // Wrapper
+        root: null // Root element
+      };
 
-			this.options = $.extend(this.options, options);
-		};
+      this.options = $.extend(this.options, options);
+    };
 
-		// Export slidify to the global object
-		window.slidify = slidify;
+    // Export slidify to the global object
+    window.slidify = slidify;
 
-		return slidify;
-	};
-	
+    return slidify;
+  };
+  
 
-	// Expose slidify as an AMD module
-	if(typeof define === 'function' && define.amd) {
-		define('slidify', ['jquery'], function($) { return build($); });
-	}
+  // Expose slidify as an AMD module
+  if(typeof define === 'function' && define.amd) {
+    define('slidify', ['jquery'], function($) { return build($); });
+  }
 
-	if(typeof window.jQuery === "function") {
-		build(window.jQuery);
-	}
+  if(typeof window.jQuery === "function") {
+    build(window.jQuery);
+  }
 
 })(window);

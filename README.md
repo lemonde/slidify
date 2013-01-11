@@ -8,17 +8,17 @@ How to use it ?
 
 ````javascript
 require(["slidify", "effects/slide", "plugins/buttons"], function(Slider, Slide, Buttons)
-  {		
-		var slider = new Slider({
-		   root: ".slidify",
-	           wrapper: ".slider",
-		   data : $('.slidify .slider li'),
-		   effect : new Slide
-		});
-		
-		slider.plug(new Buttons);
-		slider.init();
-	});
+  {   
+    var slider = new Slider({
+       root: ".slidify",
+             wrapper: ".slider",
+       data : $('.slidify .slider li'),
+       effect : new Slide
+    });
+    
+    slider.plug(new Buttons);
+    slider.init();
+  });
 ````
 
 License
