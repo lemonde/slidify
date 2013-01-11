@@ -1,12 +1,19 @@
 {
 	"name" : "slidify",
-	"version" : "0.1",
-	"description" : "Modern javascript slider based on Zepto/jQuery and using CommonJS / AMD modules.",
+	"version" : "0.0.2",
+	"description" : "Modular JavaScript slider based on Zepto/jQuery and AMD modules.",
 	"keywords" : [
 		"slider",
 		"slideshow",
 		"slide"
 	],
+	"dependencies": {},
+	"devDependencies": {
+    "chai": "~1.4.2",
+    "mocha": "~1.8.1",
+    "testacular": "~0.5.7",
+    "phantomjs": "~1.8.0-1"
+  },
 	"author" : "Le Monde.fr <devmia@lemonde.fr> (http://www.lemonde.fr/)",
 	"contributors": [
 		{
@@ -19,14 +26,13 @@
 	        "email": "berge.greg@gmail.com",
 	        "web": "http://www.neoziro.com/" 
 		} 
-	]
-	"repository" : {
+	],
+	"repository": {
 		"type" : "git",
 		"url" : "git://github.com/lemonde/slidify.git"
 	},
 	"licenses" : {
 		"type" : "MIT",
 		"url" : "https://github.com/lemonde/slidify/blob/master/README.md"
-	},
-	"dependencies": {}
+	}
 }
