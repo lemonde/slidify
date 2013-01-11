@@ -14,18 +14,18 @@
     "testacular": "~0.5.7",
     "phantomjs": "~1.8.0-1"
   },
-	"author" : "Le Monde.fr <devmia@lemonde.fr> (http://www.lemonde.fr/)",
+	"author" : "Le Monde.fr <devmia@lemonde.fr> (lemonde.fr)",
 	"contributors": [
-		{
-	        "name": "Werwinski Ludowic",
-	        "email": "werwinski@lemonde.fr",
-	        "web": "http://www.lemonde.fr" 
-		},
-	    {
-	        "name": "Bergé Greg",
-	        "email": "berge.greg@gmail.com",
-	        "web": "http://www.neoziro.com/" 
-		} 
+    {
+      "name": "Werwinski Ludowic",
+      "email": "werwinski@lemonde.fr",
+      "web": "http://www.lemonde.fr" 
+    },
+    {
+      "name": "Bergé Greg",
+      "email": "berge.greg@gmail.com",
+      "web": "http://www.neoziro.com/" 
+    } 
 	],
 	"scripts": {
     "test": "node test"
