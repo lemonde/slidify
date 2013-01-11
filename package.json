@@ -27,6 +27,9 @@
 	        "web": "http://www.neoziro.com/" 
 		} 
 	],
+	"scripts": {
+    "test": "node test"
+  },
 	"repository": {
 		"type" : "git",
 		"url" : "git://github.com/lemonde/slidify.git"
