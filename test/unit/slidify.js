@@ -44,9 +44,9 @@ describe('slidify', function() {
         expect(slider.options.delay).to.be.a('number');
         expect(slider.options.loop).to.be.a('boolean');
         expect(slider.options.startIndex).to.be.a('number');
-        expect(slider.options.effect).to.be.a('null');
-        expect(slider.options.wrapper).to.be.a('null');
-        expect(slider.options.root).to.be.a('null');
+        expect(slider.options.effect).to.be.null;
+        expect(slider.options.wrapper).to.be.null;
+        expect(slider.options.root).to.be.null;
       });
     });
 
