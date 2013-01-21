@@ -31,7 +31,7 @@
     define('slidify', ['jquery'], function($) { return build($); });
   }
 
-  if(typeof window.jQuery === "function") {
+  if(typeof window.jQuery === 'function') {
     build(window.jQuery);
   }
 

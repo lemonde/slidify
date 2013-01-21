@@ -1,3 +1,5 @@
 {
-  "laxcomma" : true
+  "laxcomma" : true,
+  "es5": true,
+  "expr": true
 }
