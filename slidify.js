@@ -1,11 +1,11 @@
 /*! slidify v0.0.2 lemonde.fr */
 
-(function(window, undefined) {
+(function (window, undefined) {
 
-  var build = function($) {
+  var build = function ($) {
     var slidify = {};
 
-    slidify.Slider = function(options) {
+    slidify.Slider = function (options) {
       this.options = {
         data: [], // JSON data or DOM objects
         delay: 5000, // Time between slides in ms
@@ -27,11 +27,11 @@
   
 
   // Expose slidify as an AMD module
-  if(typeof define === 'function' && define.amd) {
-    define('slidify', ['jquery'], function($) { return build($); });
+  if (typeof define === 'function' && define.amd) {
+    define('slidify', ['jquery'], function ($) { return build($); });
   }
 
-  if(typeof window.jQuery === 'function') {
+  if (typeof window.jQuery === 'function') {
     build(window.jQuery);
   }
 
