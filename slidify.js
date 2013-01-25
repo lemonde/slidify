@@ -1,4 +1,4 @@
-/*! slidify v0.0.2 lemonde.fr */
+/*! slidify v0.2.0 lemonde.fr */
 
 (function (window, undefined) {
 
