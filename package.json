@@ -11,7 +11,8 @@
   "devDependencies": {
     "chai": "~1.4.2",
     "mocha": "~1.8.1",
-    "testacustart": "0.0.1"
+    "testacustart": "0.0.1",
+    "bower": "~0.6.8"
   },
   "author": "Le Monde.fr <devmia@lemonde.fr> (lemonde.fr)",
   "contributors": [
@@ -27,7 +28,8 @@
     }
   ],
   "scripts": {
-    "test": "node test --single-run"
+    "test": "node test --single-run",
+    "install": "bower install"
   },
   "repository": {
     "type": "git",
