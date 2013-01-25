@@ -1,6 +1,6 @@
 {
   "name": "slidify",
-  "version": "0.2",
+  "version": "0.2.0",
   "dependencies": {
     "jquery": "~1.9.0",
     "requirejs": "~2.1.4"

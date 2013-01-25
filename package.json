@@ -1,6 +1,6 @@
 {
   "name": "slidify",
-  "version": "0.0.2",
+  "version": "0.2.0",
   "description": "Modular JavaScript slider based on jQuery and AMD modules.",
   "keywords": [
     "slider",
