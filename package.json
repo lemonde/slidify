@@ -1,8 +1,8 @@
 {
-  "name" : "slidify",
-  "version" : "0.0.2",
-  "description" : "Modular JavaScript slider based on Zepto/jQuery and AMD modules.",
-  "keywords" : [
+  "name": "slidify",
+  "version": "0.0.2",
+  "description": "Modular JavaScript slider based on jQuery and AMD modules.",
+  "keywords": [
     "slider",
     "slideshow",
     "slide"
@@ -11,31 +11,30 @@
   "devDependencies": {
     "chai": "~1.4.2",
     "mocha": "~1.8.1",
-    "testacular": "~0.5.7",
-    "phantomjs": "~1.8.0-1"
+    "testacustart": "0.0.1"
   },
-  "author" : "Le Monde.fr <devmia@lemonde.fr> (lemonde.fr)",
+  "author": "Le Monde.fr <devmia@lemonde.fr> (lemonde.fr)",
   "contributors": [
     {
       "name": "Werwinski Ludowic",
       "email": "werwinski@lemonde.fr",
-      "web": "http://www.lemonde.fr" 
+      "web": "http://www.lemonde.fr"
     },
     {
       "name": "Bergé Greg",
       "email": "berge.greg@gmail.com",
-      "web": "http://www.neoziro.com/" 
-    } 
+      "web": "http://www.neoziro.com/"
+    }
   ],
   "scripts": {
-    "test": "node test"
+    "test": "node test --single-run"
   },
   "repository": {
-    "type" : "git",
-    "url" : "git://github.com/lemonde/slidify.git"
+    "type": "git",
+    "url": "git://github.com/lemonde/slidify.git"
   },
-  "licenses" : {
-    "type" : "MIT",
-    "url" : "https://github.com/lemonde/slidify/blob/master/README.md"
+  "licenses": {
+    "type": "MIT",
+    "url": "https://github.com/lemonde/slidify/blob/master/README.md"
   }
 }
