@@ -58,13 +58,10 @@ describe('slidify', function () {
 
     describe('on instanciate slider', function () {
 
-      var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify({
-          data: data
-        });
+        slider = new window.slidify();
       });
 
       describe('wrapper', function () {
@@ -99,6 +96,7 @@ describe('slidify', function () {
 
           slider.trigger('test');
         });
+
       });
 
       describe('init', function() {
@@ -107,32 +105,48 @@ describe('slidify', function () {
           expect(slider.init).to.be.a('function');
         });
 
-        it('must trigger an #init event', function (done) {
-          slider.on('init', function (event) {
-            expect(event.slider).to.equal(slider);
-            done();
-          });
-
-          slider.init();
-        });
-
-        it('must initalize fine with given data', function () {
-          slider.init();
-          expect(slider).to.have.property('index', slider.options.index);
-          expect(slider).to.have.property('slides').and.deep.equal(data);
-          expect(slider).to.have.property('length', data.length);
-        });
-
-        it('must initalize fine with empty data', function () {
-          var emptySlide = new window.slidify();
-          emptySlide.init();
-          expect(emptySlide).to.have.property('index').and.is.null;
-          expect(emptySlide).to.have.property('slides').and.is.empty;
-          expect(emptySlide).to.have.property('length', 0);
-        });
-
       });
 
+    });
+
+    describe('init', function() {
+
+      var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      var slider;
+
+      beforeEach(function () {
+        slider = new window.slidify({
+          data: data
+        });
+      });
+
+      it('must exist an #init function', function () {
+        expect(slider.init).to.be.a('function');
+      });
+
+      it('must trigger an #init event', function (done) {
+        slider.on('init', function (event) {
+          expect(event.slider).to.equal(slider);
+          done();
+        });
+
+        slider.init();
+      });
+
+      it('must initalize fine with given data', function () {
+        slider.init();
+        expect(slider).to.have.property('index', slider.options.index);
+        expect(slider).to.have.property('slides').and.deep.equal(data);
+        expect(slider).to.have.property('length', data.length);
+      });
+
+      it('must initalize fine with empty data', function () {
+        var emptySlide = new window.slidify();
+        emptySlide.init();
+        expect(emptySlide).to.have.property('index').and.is.null;
+        expect(emptySlide).to.have.property('slides').and.is.empty;
+        expect(emptySlide).to.have.property('length', 0);
+      });
 
     });
 

@@ -6,7 +6,7 @@
 
     // Constructor
 
-    var Slider = function (options) {
+    var Slidify = function (options) {
 
       // Merging default options with those in parameter
       this.options = $.extend({
@@ -25,13 +25,22 @@
       // DOM properties
       this.$el = $('<div></div>');
 
-      // Events
+      // Events Mapping
       this.on = $.proxy(this.$el.on, this.$el);
       this.off = $.proxy(this.$el.off, this.$el);
       this.one = $.proxy(this.$el.one, this.$el);
+      this.trigger = function(event, data) {
+        if (typeof event === 'string') {
+          event = $.Event(event);
+        }
+
+        event.slider = this;
+        return this.$el.trigger(event, data);
+      };
+
     };
 
-    Slider.prototype = {
+    Slidify.prototype = {
 
       // Loader
       init: function() {
@@ -56,19 +65,12 @@
           event = $.Event(event);
         }
 
-        event.slider = this;
-        return this.$el.trigger(event, data);
       }
 
     };
 
-    // Export to global
-    if(window.slidify === undefined) {
-      window.slidify = Slider;
-    }
-
-    return Slider;
-  }
+    return Slidify;
+  };
 
   // Expose slidify as an AMD module
   if (typeof define === 'function' && define.amd) {
@@ -76,7 +78,10 @@
   }
 
   if (typeof window.jQuery === 'function') {
-    Slidify(window.jQuery);
+    // Export to global
+    if(window.slidify === undefined) {
+      window.slidify = Slidify(window.jQuery);
+    }
   }
 
 })(window);
