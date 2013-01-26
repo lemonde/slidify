@@ -41,10 +41,10 @@ describe('slidify', function () {
       it('should contain all options', function () {
         var slider = new window.slidify.Slider();
 
-        expect(slider.options.data).to.be.an('array');
-        expect(slider.options.delay).to.be.a('number');
-        expect(slider.options.loop).to.be.a('boolean');
-        expect(slider.options.startIndex).to.be.a('number');
+        expect(slider.options.data).to.be.an('array').and.be.empty;
+        expect(slider.options.delay).to.be.a('number').and.equal(5000);
+        expect(slider.options.loop).to.be.a('boolean').and.be.false;
+        expect(slider.options.startIndex).to.be.a('number').and.equal(0);
         expect(slider.options.effect).to.be.null;
       });
     });
