@@ -46,8 +46,6 @@ describe('slidify', function () {
         expect(slider.options.loop).to.be.a('boolean');
         expect(slider.options.startIndex).to.be.a('number');
         expect(slider.options.effect).to.be.null;
-        expect(slider.options.wrapper).to.be.null;
-        expect(slider.options.root).to.be.null;
       });
     });
 
@@ -60,6 +58,50 @@ describe('slidify', function () {
         expect(slider.options.delay).to.equal(5555);
       });
     });
+
+    describe('on instanciate slider', function () {
+      var slider;
+
+      beforeEach(function () {
+        slider = new window.slidify.Slider();
+      });
+
+      describe('wrapper', function () {
+        it('must be a div element', function () {
+          expect(slider.$el[0].outerHTML).to.equal('<div></div>');
+        });
+      });
+
+      describe('events', function () {
+
+        it('must exist an #trigger function', function () {
+          expect(slider.trigger).to.be.a('function');
+        });
+
+        it('must exist an #on function', function () {
+          expect(slider.on).to.be.a('function');
+        });
+
+        it('must exist a #one function', function () {
+          expect(slider.on).to.be.a('function');
+        });
+
+        it('must exist an #off function', function () {
+          expect(slider.off).to.be.a('function');
+        });
+
+        it('must exist a slider object on event', function (done) {
+          slider.on('test', function (event) {
+            expect(event.slider).to.equal(slider);
+            done();
+          });
+
+          slider.trigger('test');
+        });
+      });
+
+    });
+    
 
   });
 });

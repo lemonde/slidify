@@ -11,12 +11,27 @@
         delay: 5000, // Time between slides in ms
         loop: true, // Loop mode
         startIndex: 0, // Start slide index
-        effect: null, // Effect
-        wrapper: null, // Wrapper
-        root: null // Root element
+        effect: null // Effect
       };
 
       this.options = $.extend(this.options, options);
+
+      this.$el = $('<div></div>');
+
+      this.on = $.proxy($(this.$el).on, this.$el);
+      this.one = $.proxy($(this.$el).one, this.$el);
+      this.off = $.proxy($(this.$el).off, this.$el);
+    };
+
+    slidify.Slider.prototype = {
+      trigger: function (event, data) {
+        if (typeof event === 'string') {
+          event = $.Event(event);
+        }
+
+        event.slider = this;
+        return $(this.$el).trigger(event, data);
+      }
     };
 
     // Export slidify to the global object
