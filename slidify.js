@@ -24,6 +24,11 @@
     };
 
     slidify.Slider.prototype = {
+
+      init: function () {
+
+      },
+
       trigger: function (event, data) {
         if (typeof event === 'string') {
           event = $.Event(event);

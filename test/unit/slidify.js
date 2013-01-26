@@ -100,6 +100,14 @@ describe('slidify', function () {
         });
       });
 
+      describe('init', function() {
+
+        it('must exist an #init function', function () {
+          expect(slider.init).to.be.a('function');
+        });
+
+      });
+
     });
     
 
