@@ -6,6 +6,8 @@
     var slidify = {};
 
     slidify.Slider = function (options) {
+
+      // Default options
       this.options = {
         data: [], // JSON data or DOM objects
         delay: 5000, // Time between slides in ms
@@ -14,6 +16,7 @@
         effect: null // Effect
       };
 
+      // Merging default options with those in parameter
       this.options = $.extend(this.options, options);
 
       this.$el = $('<div></div>');
