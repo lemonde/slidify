@@ -30,6 +30,7 @@
 
       init: function () {
 
+        this.trigger('init');
       },
 
       trigger: function (event, data) {
