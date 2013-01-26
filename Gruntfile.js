@@ -9,6 +9,16 @@ module.exports = function(grunt) {
       all: ['slidify.js', 'test/**/*.js']
     },
 
+    testacular: {
+      unit: {
+        configFile: 'test/testacular.conf.js'
+      },
+      single: {
+        configFile: 'test/testacular.conf.js',
+        singleRun: true
+      }
+    },
+
     copy: {
       all: {
         files: {
@@ -34,7 +44,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('gruntacular');
 
   grunt.registerTask('default', ['jshint', 'copy', 'uglify']);
   grunt.registerTask('lint', ['jshint']);
+  grunt.registerTask('test', ['testacular']);
+  grunt.registerTask('test:single', ['testacular:single']);
 };
