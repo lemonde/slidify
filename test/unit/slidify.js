@@ -16,30 +16,27 @@ describe('slidify', function () {
 
   describe('access slidify object', function () {
     it('should exist an object slidify on window', function () {
-      expect(window.slidify).to.be.an('object');
+      expect(window.slidify).to.be.an('function');
     });
 
     it('should return slidify object with requirejs', function (done) {
       require(['slidify'], function (slidify) {
-        expect(slidify).to.be.an('object');
+        expect(slidify).to.be.an('function');
         done();
       });
     });
   });
 
   describe('Slider', function () {
-    describe('should exist a Slider prototype', function () {
-      expect(window.slidify.Slider).to.be.a('function');
-    });
 
     describe('default options', function () {
       it('should contain an object options', function () {
-        var slider = new window.slidify.Slider();
+        var slider = new window.slidify();
         expect(slider.options).to.be.an('object');
       });
 
       it('should contain all options', function () {
-        var slider = new window.slidify.Slider();
+        var slider = new window.slidify();
 
         expect(slider.options.data).to.be.an('array').and.be.empty;
         expect(slider.options.delay).to.be.a('number').and.equal(5000);
@@ -51,7 +48,7 @@ describe('slidify', function () {
 
     describe('extend options', function () {
       it('should contain an object options extended', function () {
-        var slider = new window.slidify.Slider({
+        var slider = new window.slidify({
           delay: 5555
         });
 
@@ -65,7 +62,7 @@ describe('slidify', function () {
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify.Slider({
+        slider = new window.slidify({
           data: data
         });
       });
@@ -127,7 +124,7 @@ describe('slidify', function () {
         });
 
         it('must initalize fine with empty data', function () {
-          var emptySlide = new window.slidify.Slider();
+          var emptySlide = new window.slidify();
           emptySlide.init();
           expect(emptySlide).to.have.property('index').and.is.null;
           expect(emptySlide).to.have.property('slides').and.is.empty;

@@ -2,42 +2,39 @@
 
 (function (window, undefined) {
 
-  var build = function ($) {
-    var slidify = {};
+  var Slidify = function ($) {
 
-    slidify.Slider = function (options) {
+    // Constructor
 
-      // Default options
-      this.options = {
+    var Slider = function (options) {
+
+      // Merging default options with those in parameter
+      this.options = $.extend({
         data: [], // JSON data or DOM objects
         index: 0, // Initial index
         loop: false, // Loop mode
         delay: 5000, // Time between slides in ms
         effect: null // Effect
-      };
+      }, options);
 
-      // Merging default options with those in parameter
-      this.options = $.extend(this.options, options);
-
-      // Slider's slides
+      // Slides properties
       this.slides = [];
-
-      // Slides length
       this.length = 0;
-
-      // Current index
       this.index = null;
 
+      // DOM properties
       this.$el = $('<div></div>');
 
-      this.on = $.proxy($(this.$el).on, this.$el);
-      this.one = $.proxy($(this.$el).one, this.$el);
-      this.off = $.proxy($(this.$el).off, this.$el);
+      // Events
+      this.on = $.proxy(this.$el.on, this.$el);
+      this.off = $.proxy(this.$el.off, this.$el);
+      this.one = $.proxy(this.$el.one, this.$el);
     };
 
-    slidify.Slider.prototype = {
+    Slider.prototype = {
 
-      init: function () {
+      // Loader
+      init: function() {
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
           // Store data in slides property
@@ -53,30 +50,33 @@
         this.trigger('init');
       },
 
-      trigger: function (event, data) {
+      // Event API
+      trigger: function(event, data) {
         if (typeof event === 'string') {
           event = $.Event(event);
         }
 
         event.slider = this;
-        return $(this.$el).trigger(event, data);
+        return this.$el.trigger(event, data);
       }
+
     };
 
-    // Export slidify to the global object
-    window.slidify = slidify;
+    // Export to global
+    if(window.slidify === undefined) {
+      window.slidify = Slider;
+    }
 
-    return slidify;
-  };
-  
+    return Slider;
+  }
 
   // Expose slidify as an AMD module
   if (typeof define === 'function' && define.amd) {
-    define('slidify', ['jquery'], function ($) { return build($); });
+    define('slidify', ['jquery'], function ($) { return Slidify($); });
   }
 
   if (typeof window.jQuery === 'function') {
-    build(window.jQuery);
+    Slidify(window.jQuery);
   }
 
 })(window);
