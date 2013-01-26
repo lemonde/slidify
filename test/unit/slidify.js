@@ -60,10 +60,14 @@ describe('slidify', function () {
     });
 
     describe('on instanciate slider', function () {
+
+      var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify.Slider();
+        slider = new window.slidify.Slider({
+          data: data
+        });
       });
 
       describe('wrapper', function () {
@@ -115,7 +119,23 @@ describe('slidify', function () {
           slider.init();
         });
 
+        it('must initalize fine with given data', function () {
+          slider.init();
+          expect(slider).to.have.property('index', slider.options.index);
+          expect(slider).to.have.property('slides').and.deep.equal(data);
+          expect(slider).to.have.property('length', data.length);
+        });
+
+        it('must initalize fine with empty data', function () {
+          var emptySlide = new window.slidify.Slider();
+          emptySlide.init();
+          expect(emptySlide).to.have.property('index').and.is.null;
+          expect(emptySlide).to.have.property('slides').and.is.empty;
+          expect(emptySlide).to.have.property('length', 0);
+        });
+
       });
+
 
     });
 
