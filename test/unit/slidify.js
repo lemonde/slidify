@@ -13,7 +13,7 @@ describe('slidify', function () {
       done();
     });
   });
-  
+
   describe('access slidify object', function () {
     it('should exist an object slidify on window', function () {
       expect(window.slidify).to.be.an('object');
