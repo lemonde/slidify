@@ -110,7 +110,7 @@ describe('slidify', function () {
           expect(slider.init).to.be.a('function');
         });
 
-        if('must trigger an #init event', function () {
+        it('must trigger an #init event', function (done) {
           slider.on('init', function (event) {
             expect(event.slider).to.equal(slider);
             done();
