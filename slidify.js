@@ -59,10 +59,29 @@
         this.trigger('init');
       },
 
-      // Event API
-      trigger: function(event, data) {
-        if (typeof event === 'string') {
-          event = $.Event(event);
+      // Traversing API
+      next: function() {
+
+        if (this.index === this.length - 1) {
+           if (this.options.loop === true) {
+             this.index = 0;
+           }
+        }
+        else {
+          this.index += 1;
+        }
+
+      },
+
+      previous: function() {
+
+        if (this.index === 0) {
+           if (this.options.loop === true) {
+             this.index = this.length - 1;
+           }
+        }
+        else {
+          this.index -= 1;
         }
 
       }
