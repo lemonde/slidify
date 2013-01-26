@@ -44,7 +44,7 @@ describe('slidify', function () {
         expect(slider.options.data).to.be.an('array').and.be.empty;
         expect(slider.options.delay).to.be.a('number').and.equal(5000);
         expect(slider.options.loop).to.be.a('boolean').and.be.false;
-        expect(slider.options.startIndex).to.be.a('number').and.equal(0);
+        expect(slider.options.index).to.be.a('number').and.equal(0);
         expect(slider.options.effect).to.be.null;
       });
     });

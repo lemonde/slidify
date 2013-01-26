@@ -10,9 +10,9 @@
       // Default options
       this.options = {
         data: [], // JSON data or DOM objects
-        delay: 5000, // Time between slides in ms
+        index: 0, // Initial index
         loop: false, // Loop mode
-        startIndex: 0, // Start slide index
+        delay: 5000, // Time between slides in ms
         effect: null // Effect
       };
 
