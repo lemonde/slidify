@@ -60,15 +60,20 @@
       },
 
       // Traversing API
+
+      move: function(index) {
+        this.index = index;
+      },
+
       next: function() {
 
         if (this.index === this.length - 1) {
            if (this.options.loop === true) {
-             this.index = 0;
+             this.move(0);
            }
         }
         else {
-          this.index += 1;
+          this.move(this.index + 1);
         }
 
       },
@@ -77,11 +82,11 @@
 
         if (this.index === 0) {
            if (this.options.loop === true) {
-             this.index = this.length - 1;
+             this.move(this.length - 1);
            }
         }
         else {
-          this.index -= 1;
+          this.move(this.index - 1);
         }
 
       }

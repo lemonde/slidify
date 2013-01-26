@@ -102,6 +102,7 @@ describe('slidify', function () {
       describe('API', function() {
 
         it('must have all functions', function () {
+          expect(slider.move).to.be.a('function');
           expect(slider.next).to.be.a('function');
           expect(slider.previous).to.be.a('function');
         });
@@ -156,8 +157,15 @@ describe('slidify', function () {
       var data = [1, 2, 3];
       var slider;
 
-      it('must increase current index on next call', function () {
+      if('must change current index on move call', function() {
+        slider = new slidify({data: data});
+        slider.init();
 
+        slider.move(1);
+        expect(slider.index).to.be.equal(1);
+      });
+
+      it('must increase current index on next call', function () {
         slider = new slidify({data: data});
         slider.init();
 
@@ -182,7 +190,6 @@ describe('slidify', function () {
       });
 
       it('must decrease current index on previous call', function () {
-
         slider = new slidify({data: data, index: 2});
         slider.init();
 
