@@ -46,16 +46,22 @@
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
 
-          var data, slide, i, l = this.options.data.length;
+          var data, i, l = this.options.data.length, inDOM = this.$el.children();
 
           // Transform data into slide items and store them in slides property
           for(i = 0; i < l; i++) {
             data = this.options.data[i];
-            if (data.getElementsByTagName !== undefined) {
-               data = $(data).clone();
+            // If data is not an object, we convert it
+            if(typeof data !== 'object') {
+               data = {html: data};
             }
-            slide = new Slide(data);
-            this.slides.push(slide);
+            // Check if data is already in DOM
+            // If DOM HTML <> data html we use DOM HTML
+            if(inDOM[i - this.options.index] !== undefined) {
+               data.html = $(inDOM[i - this.index]).get(0);
+            }
+            // Store
+            this.slides.push(new Slide(data));
           }
 
           // Store length

@@ -115,7 +115,7 @@ describe('slidify', function () {
 
       var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       var slides = jQ.map(data, function(d) {
-        return { data: d, item: null };
+        return { data: {html: d}, item: null };
       });
       var slider;
 
