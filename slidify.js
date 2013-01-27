@@ -148,6 +148,31 @@
         return data;
       },
 
+      // Attach slide in $root DOM
+      attach: function(indexes, params) {
+
+        var slide, method, self = this,
+
+        params = $.extend({
+          'append': true,
+          'hidden': true
+        }, params);
+
+        if(typeof indexes !== 'object') {
+          indexes = [indexes];
+        }
+
+        $.each(indexes, function(k,v) {
+          slide = self.get(v);
+          if(slide && typeof slide.item !== undefined) {
+            slide.item.toggle(params.hidden !== true);
+            method = (params.append === true) ? 'append' : 'preprend';
+            self.$root[method](slide.item);
+          }
+        });
+
+      },
+
       /* !Event API */
 
       /* Events API

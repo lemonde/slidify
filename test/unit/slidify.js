@@ -148,6 +148,13 @@ describe('Slidify', function () {
       var slide = { html: '<div>1</div>', item: jQ('<div>1</div>') };
       var slider;
 
+      it('must have all functions', function () {
+        slider = new slidify();
+        expect(slider.addSlide).to.be.a('function');
+        expect(slider.renderSlide).to.be.a('function');
+        expect(slider.attach).to.be.a('function');
+      });
+
       it('must render Slide correctly with simple data', function () {
         slider = new window.slidify({data: dataStr});
         slider.init();
@@ -170,6 +177,15 @@ describe('Slidify', function () {
         slider.addSlide('<div>2</div>');
         expect(slider.length()).to.be.equal(2);
         expect(slider.current()).to.be.deep.equal(slide);
+      });
+
+      it('must attach slides correctly', function() {
+        slider = new window.slidify({data: dataObj});
+        slider.init();
+
+        expect(slider.$root.children().length).to.be.equal(0);
+        slider.attach([0]);
+        expect(slider.$root.children().length).to.be.equal(1);
       });
 
     });
