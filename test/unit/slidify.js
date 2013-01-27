@@ -103,14 +103,10 @@ describe('Slidify', function () {
 
     describe('init', function() {
 
-      var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      var slides = jQ.map(data, function(d) {
-        return { data: {html: d}, item: null };
-      });
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify({data: data});
+        slider = new window.slidify({data: [0]});
       });
 
       it('must exist an #init function', function () {
@@ -119,7 +115,6 @@ describe('Slidify', function () {
 
       it('must trigger an #init event', function (done) {
         slider.on('init', function (event) {
-          expect(event.slider).to.equal(slider);
           done();
         });
 

@@ -132,6 +132,7 @@
         // Check Index
         if (!this.index && this.slides[this.options.index] !== undefined) {
           this.index = this.options.index;
+          //this.attach(this.index);
         }
       },
 
