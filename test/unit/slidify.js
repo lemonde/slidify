@@ -66,7 +66,7 @@ describe('slidify', function () {
 
       describe('wrapper', function () {
         it('must be a div element', function () {
-          expect(slider.$el[0].outerHTML).to.equal('<div></div>');
+          expect(slider.$root[0].outerHTML).to.equal('<div></div>');
         });
       });
 

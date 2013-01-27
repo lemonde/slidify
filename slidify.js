@@ -25,7 +25,8 @@
         index: 0, // Initial index
         loop: false, // Loop mode
         delay: 5000, // Time between slides in ms
-        effect: null // Effect
+        effect: null, // Effect
+        root: $("<div>") // Root element
       }, options);
 
       // Slides properties
@@ -35,7 +36,7 @@
       this.progress = false;
 
       // DOM properties
-      this.$el = $('<div>');
+      this.$root = this.options.root;
     };
 
     Slidify.prototype = {
@@ -46,7 +47,7 @@
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
 
-          var data, i, l = this.options.data.length, inDOM = this.$el.children();
+          var data, i, l = this.options.data.length, inDOM = this.$root.children();
 
           // Transform data into slide items and store them in slides property
           for(i = 0; i < l; i++) {
@@ -131,17 +132,17 @@
 
       // Attach an event handler function for one or more events.
       on: function (types, selector, data, fn) {
-        this.$el.on(types, selector, data, fn);
+        this.$root.on(types, selector, data, fn);
       },
 
       // Remove an event handler.
       off: function (types, selector, fn) {
-        this.$el.off(types, selector, fn);
+        this.$root.off(types, selector, fn);
       },
 
       // Attach a handler to an event executed only one time.
       one: function (types, selector, data, fn) {
-        this.$el.one(types, selector, data, fn);
+        this.$root.one(types, selector, data, fn);
       },
 
       // Execute all handlers and behaviors for the given event type.
@@ -151,7 +152,7 @@
         }
 
         event.slider = this; // hum, not sure we really need this trick
-        return this.$el.trigger(event, data);
+        return this.$root.trigger(event, data);
       }
 
     };
