@@ -160,7 +160,7 @@ describe('Slidify', function () {
         expect(slider.current()).to.be.deep.equal(slide);
       });
 
-      it('must add & render Slide correctly', function () {
+      it('must add Slide correctly', function () {
         slider = new window.slidify();
         slider.init();
         expect(slider.length()).to.be.equal(0);
