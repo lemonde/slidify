@@ -25,20 +25,6 @@
 
       // DOM properties
       this.$el = $('<div>');
-
-      // Events Method Mapping
-      this.on = $.proxy(this.$el.on, this.$el);
-      this.off = $.proxy(this.$el.off, this.$el);
-      this.one = $.proxy(this.$el.one, this.$el);
-      this.trigger = function(event, data) {
-        if (typeof event === 'string') {
-          event = $.Event(event);
-        }
-
-        event.slider = this;
-        return this.$el.trigger(event, data);
-      };
-
     };
 
     Slidify.prototype = {
@@ -102,6 +88,37 @@
           this.move(this.index - 1, true);
         }
 
+      },
+
+      /*
+       * Events API
+       * Binding to non-dom elements doesn't work anymore since jQuery 1.4.4. :(
+       * So we use the main DOM element to simulate event binding on the object
+       */
+
+      // Attach an event handler function for one or more events.
+      on: function (types, selector, data, fn) {
+        this.$el.on(types, selector, data, fn);
+      },
+
+      // Remove an event handler.
+      off: function (types, selector, fn) {
+        this.$el.off(types, selector, fn);
+      },
+
+      // Attach a handler to an event executed only one time.
+      one: function (types, selector, data, fn) {
+        this.$el.one(types, selector, data, fn);
+      },
+
+      // Execute all handlers and behaviors for the given event type.
+      trigger: function (event, data) {
+        if (typeof event === 'string') {
+          event = $.Event(event);
+        }
+
+        event.slider = this; // hum, not sure we really need this trick
+        return this.$el.trigger(event, data);
       }
 
     };
