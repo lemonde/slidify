@@ -56,7 +56,7 @@
                data = {html: data};
             }
             // Check if data is already in DOM
-            // If DOM HTML <> data html we use DOM HTML
+            // If DOM HTML <> data html we use DOM HTML to avoid blink effect
             if(inDOM[i - this.options.index] !== undefined) {
                data.html = $(inDOM[i - this.index]).get(0);
             }
