@@ -46,7 +46,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('gruntacular');
 
-  grunt.registerTask('default', ['jshint', 'copy', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'testacular:single', 'copy', 'uglify']);
   grunt.registerTask('lint', ['jshint']);
   grunt.registerTask('test', ['testacular']);
   grunt.registerTask('test:single', ['testacular:single']);
