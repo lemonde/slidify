@@ -31,12 +31,12 @@ describe('slidify', function () {
 
     describe('default options', function () {
       it('should contain an object options', function () {
-        var slider = new window.slidify();
+        var slider = new slidify();
         expect(slider.options).to.be.an('object');
       });
 
       it('should contain all options', function () {
-        var slider = new window.slidify();
+        var slider = new slidify();
 
         expect(slider.options.data).to.be.an('array').and.be.empty;
         expect(slider.options.delay).to.be.a('number').and.equal(5000);
