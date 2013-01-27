@@ -21,6 +21,7 @@
       this.slides = [];
       this.length = 0;
       this.index = null;
+      this.progress = false;
 
       // DOM properties
       this.$el = $('<div></div>');
@@ -61,8 +62,15 @@
 
       // Traversing API
 
-      move: function(index) {
-        this.index = index;
+      move: function(index, backward) {
+
+        backward = backward || false;
+
+        if(!this.progress) {
+          this.progress = true;
+          this.index = index;
+          this.progress = false;
+        }
       },
 
       next: function() {
@@ -82,11 +90,11 @@
 
         if (this.index === 0) {
            if (this.options.loop === true) {
-             this.move(this.length - 1);
+             this.move(this.length - 1, true);
            }
         }
         else {
-          this.move(this.index - 1);
+          this.move(this.index - 1, true);
         }
 
       }

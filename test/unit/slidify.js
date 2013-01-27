@@ -157,7 +157,7 @@ describe('slidify', function () {
       var data = [1, 2, 3];
       var slider;
 
-      if('must change current index on move call', function() {
+      it('must change current index on move call', function () {
         slider = new slidify({data: data});
         slider.init();
 
