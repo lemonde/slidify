@@ -25,7 +25,6 @@
 
       // Slides properties
       this.slides = [];
-      this.length = 0;
       this.index = null;
       this.progress = false;
 
@@ -58,9 +57,6 @@
             this.addSlide(data);
           }
 
-          // Store length
-          this.length = this.slides.length;
-
           // Check currentIndex
           if (this.slides[this.options.index] !== undefined) {
             this.index = this.options.index;
@@ -86,6 +82,11 @@
         return this.get(this.index);
       },
 
+      // Return number of slides
+      length: function () {
+        return this.slides.length;
+      },
+
       // Move to the slide corresponding to given index
       move: function (index, backward) {
 
@@ -103,7 +104,7 @@
       // Move to next slide
       next: function () {
 
-        if (this.index === this.length - 1) {
+        if (this.index === this.length() - 1) {
            if (this.options.loop === true) {
              this.move(0);
            }
@@ -119,7 +120,7 @@
 
         if (this.index === 0) {
            if (this.options.loop === true) {
-             this.move(this.length - 1, true);
+             this.move(this.length() - 1, true);
            }
         }
         else {

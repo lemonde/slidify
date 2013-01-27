@@ -130,7 +130,6 @@ describe('Slidify', function () {
         slider.init();
         expect(slider).to.have.property('index', slider.options.index);
         expect(slider).to.have.property('slides').and.is.a('array');
-        expect(slider).to.have.property('length', data.length);
       });
 
       it('must initalize fine with empty data', function () {
@@ -138,7 +137,6 @@ describe('Slidify', function () {
         emptySlide.init();
         expect(emptySlide).to.have.property('index').and.is.null;
         expect(emptySlide).to.have.property('slides').and.is.empty;
-        expect(emptySlide).to.have.property('length', 0);
       });
 
     });
@@ -175,6 +173,7 @@ describe('Slidify', function () {
       it('must have all functions', function () {
         slider = new slidify();
         expect(slider.current).to.be.a('function');
+        expect(slider.length).to.be.a('function');
         expect(slider.move).to.be.a('function');
         expect(slider.next).to.be.a('function');
         expect(slider.previous).to.be.a('function');
@@ -184,6 +183,12 @@ describe('Slidify', function () {
         slider = new slidify({data: data});
         slider.init();
         expect(slider.current()).to.be.deep.equal(slides[0]);
+      });
+
+      it('must return slides length on length() call', function () {
+        slider = new slidify({data: data});
+        slider.init();
+        expect(slider.length()).to.be.equal(3);
       });
 
       it('must change current slide on move() call', function () {
