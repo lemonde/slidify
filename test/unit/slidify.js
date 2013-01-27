@@ -152,7 +152,7 @@ describe('slidify', function () {
 
     });
 
-    describe('Traversing Functions', function() {
+    describe('Traversing API', function() {
 
       var data = [1, 2, 3];
       var slider;
@@ -163,6 +163,15 @@ describe('slidify', function () {
 
         slider.move(1);
         expect(slider.index).to.be.equal(1);
+      });
+
+      it('must trigger a move event on move call', function (done) {
+        slider = new slidify({data: data});
+        slider.init();
+        slider.on('move', function() {
+          done();
+        });
+        slider.move(1);
       });
 
       it('must increase current index on next call', function () {

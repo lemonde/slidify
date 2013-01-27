@@ -59,6 +59,8 @@
           this.progress = true;
           this.index = index;
           this.progress = false;
+
+          this.trigger("move");
         }
       },
 
