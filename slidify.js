@@ -127,7 +127,7 @@
       /* !DOM & Slides internal methods */
 
       // Add new slide to the slider
-      addSlide: function(data) {
+      addSlide: function (data) {
         this.slides.push(this.renderSlide(data));
         // Check Index
         if (!this.index && this.slides[this.options.index] !== undefined) {
@@ -136,7 +136,7 @@
       },
 
       // Render a slide with all good attributes
-      renderSlide: function(data) {
+      renderSlide: function (data) {
         // If data is not an object, we convert it
         if(typeof data !== 'object') {
            data = {html: data};
@@ -149,7 +149,7 @@
       },
 
       // Attach slide in $root DOM
-      attach: function(indexes, params) {
+      attach: function (indexes, params) {
 
         var slide, method, self = this,
 
@@ -162,7 +162,7 @@
           indexes = [indexes];
         }
 
-        $.each(indexes, function(k,v) {
+        $.each(indexes, function (k,v) {
           slide = self.get(v);
           if(slide && typeof slide.item !== undefined) {
             slide.item.toggle(params.hidden !== true);
