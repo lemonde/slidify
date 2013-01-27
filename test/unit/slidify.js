@@ -99,16 +99,6 @@ describe('slidify', function () {
 
       });
 
-      describe('API', function() {
-
-        it('must have all functions', function () {
-          expect(slider.move).to.be.a('function');
-          expect(slider.next).to.be.a('function');
-          expect(slider.previous).to.be.a('function');
-        });
-
-      });
-
     });
 
     describe('init', function() {
@@ -158,17 +148,34 @@ describe('slidify', function () {
     describe('Traversing API', function() {
 
       var data = [1, 2, 3];
+      var slides = jQ.map(data, function(d) {
+        return { data: {html: d}, item: null };
+      });
       var slider;
 
-      it('must change current index on move call', function () {
-        slider = new slidify({data: data});
-        slider.init();
-
-        slider.move(1);
-        expect(slider.index).to.be.equal(1);
+      it('must have all functions', function () {
+        slider = new slidify();
+        expect(slider.current).to.be.a('function');
+        expect(slider.move).to.be.a('function');
+        expect(slider.next).to.be.a('function');
+        expect(slider.previous).to.be.a('function');
       });
 
-      it('must trigger a move event on move call', function (done) {
+      it('must return current slide on current() call', function () {
+        slider = new slidify({data: data});
+        slider.init();
+        expect(slider.current()).to.be.deep.equal(slides[0]);
+      });
+
+      it('must change current slide on move() call', function () {
+        slider = new slidify({data: data});
+        slider.init();
+        slider.move(1);
+        expect(slider.index).to.be.equal(1);
+        expect(slider.current()).to.be.deep.equal(slides[1]);
+      });
+
+      it('must trigger a move event on move() call', function (done) {
         slider = new slidify({data: data});
         slider.init();
         slider.on('move', function() {
@@ -177,52 +184,58 @@ describe('slidify', function () {
         slider.move(1);
       });
 
-      it('must increase current index on next call', function () {
+      it('must increase current slide index on next() call', function () {
+        // instantiate without change index, index = 0
         slider = new slidify({data: data});
         slider.init();
-
         slider.next();
         expect(slider.index).to.be.equal(1);
+        expect(slider.current()).to.be.deep.equal(slides[1]);
       });
 
-      it('must not change index on next() with no loop option', function () {
+      it('must not change current on next() call with no loop option', function () {
+        // instantiate with given index, index = 2
         slider = new slidify({data: data, loop: false, index: 2});
         slider.init();
-
         slider.next();
         expect(slider.index).to.be.equal(2);
+        expect(slider.current()).to.be.deep.equal(slides[2]);
       });
 
-      it('must go back to first index on next() with loop option', function () {
+      it('must go back to first slide on next() call with loop option', function () {
+        // instantiate with given index, index = 2
         slider = new slidify({data: data, loop: true, index: 2});
         slider.init();
-
         slider.next();
         expect(slider.index).to.be.equal(0);
+        expect(slider.current()).to.be.deep.equal(slides[0]);
       });
 
-      it('must decrease current index on previous call', function () {
+      it('must decrease current slide index on previous() call', function () {
+        // instantiate with given index, index = 2
         slider = new slidify({data: data, index: 2});
         slider.init();
-
         slider.previous();
         expect(slider.index).to.be.equal(1);
+        expect(slider.current()).to.be.deep.equal(slides[1]);
       });
 
-      it('must not change index on next() with no loop option', function () {
+      it('must not change slide index on previous() with no loop option', function () {
+        // instantiate with given index, index = 0
         slider = new slidify({data: data, loop: false});
         slider.init();
-
         slider.previous();
         expect(slider.index).to.be.equal(0);
+        expect(slider.current()).to.be.deep.equal(slides[0]);
       });
 
-      it('must go back to first index on next() with loop option', function () {
+      it('must go to last index on previous() call with loop option', function () {
+        // instantiate with given index, index = 0
         slider = new slidify({data: data, loop: true});
         slider.init();
-
         slider.previous();
         expect(slider.index).to.be.equal(2);
+        expect(slider.current()).to.be.deep.equal(slides[2]);
       });
 
     });

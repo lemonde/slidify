@@ -82,6 +82,11 @@
        * Traversing API
        */
 
+      // Return the current slide
+      current: function () {
+        return this.slides[this.index];
+      },
+
       // Move to the slide corresponding to given index
       move: function (index, backward) {
 
