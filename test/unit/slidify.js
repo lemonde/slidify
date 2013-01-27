@@ -172,11 +172,19 @@ describe('Slidify', function () {
 
       it('must have all functions', function () {
         slider = new slidify();
+        expect(slider.get).to.be.a('function');
         expect(slider.current).to.be.a('function');
         expect(slider.length).to.be.a('function');
         expect(slider.move).to.be.a('function');
         expect(slider.next).to.be.a('function');
         expect(slider.previous).to.be.a('function');
+      });
+
+      it('must return good slide on get() call', function () {
+        slider = new slidify({data: data});
+        slider.init();
+        expect(slider.get(0)).to.be.deep.equal(slides[0]);
+        expect(slider.get(2)).to.be.deep.equal(slides[2]);
       });
 
       it('must return current slide on current() call', function () {
