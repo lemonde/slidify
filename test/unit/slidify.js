@@ -16,12 +16,12 @@ describe('Slidify', function () {
 
   describe('access slidify object', function () {
     it('should exist an object slidify on window', function () {
-      expect(window.slidify).to.be.an('function');
+      expect(window.Slidify).to.be.an('function');
     });
 
     it('should return slidify object with requirejs', function (done) {
-      require(['slidify'], function (slidify) {
-        expect(slidify).to.be.an('function');
+      require(['slidify'], function (Slidify) {
+        expect(Slidify).to.be.an('function');
         done();
       });
     });
@@ -31,12 +31,12 @@ describe('Slidify', function () {
 
     describe('default options', function () {
       it('should contain an object options', function () {
-        var slider = new slidify();
+        var slider = new Slidify();
         expect(slider.options).to.be.an('object');
       });
 
       it('should contain all options', function () {
-        var slider = new slidify();
+        var slider = new Slidify();
 
         expect(slider.options.data).to.be.an('array').and.be.empty;
         expect(slider.options.delay).to.be.a('number').and.equal(5000);
@@ -48,7 +48,7 @@ describe('Slidify', function () {
 
     describe('extend options', function () {
       it('should contain an object options extended', function () {
-        var slider = new window.slidify({
+        var slider = new window.Slidify({
           delay: 5555
         });
 
@@ -61,7 +61,7 @@ describe('Slidify', function () {
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify();
+        slider = new window.Slidify();
       });
 
       describe('wrapper', function () {
@@ -101,12 +101,12 @@ describe('Slidify', function () {
 
     });
 
-    describe('init', function() {
+    describe('init', function () {
 
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify({data: [0]});
+        slider = new window.Slidify({data: [0]});
       });
 
       it('must exist an #init function', function () {
@@ -114,7 +114,7 @@ describe('Slidify', function () {
       });
 
       it('must trigger an #init event', function (done) {
-        slider.on('init', function (event) {
+        slider.on('init', function () {
           done();
         });
 
@@ -128,7 +128,7 @@ describe('Slidify', function () {
       });
 
       it('must initalize fine with empty data', function () {
-        var emptySlide = new window.slidify();
+        var emptySlide = new window.Slidify();
         emptySlide.init();
         expect(emptySlide).to.have.property('index').and.is.null;
         expect(emptySlide).to.have.property('slides').and.is.empty;
@@ -136,7 +136,7 @@ describe('Slidify', function () {
 
     });
 
-    describe('Slides API', function() {
+    describe('Slides API', function () {
 
       var dataStr = ['<div>1</div>'];
       var dataObj = [{html: '<div>1</div>'}];
@@ -144,7 +144,7 @@ describe('Slidify', function () {
       var slider;
 
       it('must have all functions', function () {
-        slider = new slidify();
+        slider = new Slidify();
         expect(slider.addSlide).to.be.a('function');
         expect(slider.renderSlide).to.be.a('function');
         expect(slider.attach).to.be.a('function');
@@ -152,7 +152,7 @@ describe('Slidify', function () {
       });
 
       it('must render Slide correctly with simple data', function () {
-        slider = new window.slidify({data: dataStr});
+        slider = new window.Slidify({data: dataStr});
         slider.init();
 
         // following test success in local but no in travis
@@ -164,7 +164,7 @@ describe('Slidify', function () {
       });
 
       it('must render Slide correctly with object data', function () {
-        slider = new window.slidify({data: dataObj});
+        slider = new window.Slidify({data: dataObj});
         slider.init();
 
         // following test success in local but no in travis
@@ -176,7 +176,7 @@ describe('Slidify', function () {
       });
 
       it('must add Slide correctly', function () {
-        slider = new window.slidify();
+        slider = new window.Slidify();
         slider.init();
         expect(slider.length()).to.be.equal(0);
         slider.addSlide('<div>1</div>');
@@ -185,16 +185,16 @@ describe('Slidify', function () {
         expect(slider.length()).to.be.equal(2);
       });
 
-      it('must attach slides correctly', function() {
-        slider = new window.slidify({data: dataObj});
+      it('must attach slides correctly', function () {
+        slider = new window.Slidify({data: dataObj});
         slider.init();
 
         slider.attach(0);
         expect(slider.$root.children().length).to.be.equal(1);
       });
 
-      it('must detach slides correctly', function() {
-        slider = new window.slidify({data: dataObj});
+      it('must detach slides correctly', function () {
+        slider = new window.Slidify({data: dataObj});
         slider.init();
 
         expect(slider.$root.children().length).to.be.equal(0);
@@ -209,13 +209,13 @@ describe('Slidify', function () {
     describe('Traversing API', function () {
 
       var data = [1, 2, 3];
-      var slides = jQ.map(data, function(d) {
+      var slides = jQ.map(data, function (d) {
         return { html: d, item: { '0': d, length: 1 } };
       });
       var slider;
 
       it('must have all functions', function () {
-        slider = new slidify();
+        slider = new Slidify();
         expect(slider.get).to.be.a('function');
         expect(slider.current).to.be.a('function');
         expect(slider.length).to.be.a('function');
@@ -225,20 +225,20 @@ describe('Slidify', function () {
       });
 
       it('must return good slide on get() call', function () {
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
         expect(slider.get(0)).to.be.deep.equal(slides[0]);
         expect(slider.get(2)).to.be.deep.equal(slides[2]);
       });
 
       it('must return slides length on length() call', function () {
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
         expect(slider.length()).to.be.equal(3);
       });
 
       it('must change current slide on move() call', function () {
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
         slider.move(1);
         expect(slider.index).to.be.equal(1);
@@ -246,16 +246,16 @@ describe('Slidify', function () {
       });
 
       it('must trigger a move event on move() call', function (done) {
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
-        slider.on('move', function() {
+        slider.on('move', function () {
           done();
         });
         slider.move(1);
       });
 
       it('must return good slide on current() call', function () {
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
         expect(slider.current()).to.be.deep.equal(slides[0]);
         slider.move(1);
@@ -264,7 +264,7 @@ describe('Slidify', function () {
 
       it('must increase current slide index on next() call', function () {
         // instantiate without change index, index = 0
-        slider = new slidify({data: data});
+        slider = new Slidify({data: data});
         slider.init();
         slider.next();
         expect(slider.index).to.be.equal(1);
@@ -273,7 +273,7 @@ describe('Slidify', function () {
 
       it('must not change current on next() call with no loop option', function () {
         // instantiate with given index, index = 2
-        slider = new slidify({data: data, loop: false, index: 2});
+        slider = new Slidify({data: data, loop: false, index: 2});
         slider.init();
         slider.next();
         expect(slider.index).to.be.equal(2);
@@ -282,7 +282,7 @@ describe('Slidify', function () {
 
       it('must go back to first slide on next() call with loop option', function () {
         // instantiate with given index, index = 2
-        slider = new slidify({data: data, loop: true, index: 2});
+        slider = new Slidify({data: data, loop: true, index: 2});
         slider.init();
         slider.next();
         expect(slider.index).to.be.equal(0);
@@ -291,7 +291,7 @@ describe('Slidify', function () {
 
       it('must decrease current slide index on previous() call', function () {
         // instantiate with given index, index = 2
-        slider = new slidify({data: data, index: 2});
+        slider = new Slidify({data: data, index: 2});
         slider.init();
         slider.previous();
         expect(slider.index).to.be.equal(1);
@@ -300,7 +300,7 @@ describe('Slidify', function () {
 
       it('must not change slide index on previous() with no loop option', function () {
         // instantiate with given index, index = 0
-        slider = new slidify({data: data, loop: false});
+        slider = new Slidify({data: data, loop: false});
         slider.init();
         slider.previous();
         expect(slider.index).to.be.equal(0);
@@ -309,7 +309,7 @@ describe('Slidify', function () {
 
       it('must go to last index on previous() call with loop option', function () {
         // instantiate with given index, index = 0
-        slider = new slidify({data: data, loop: true});
+        slider = new Slidify({data: data, loop: true});
         slider.init();
         slider.previous();
         expect(slider.index).to.be.equal(2);
