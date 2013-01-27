@@ -4,9 +4,20 @@
 
   var Slidify = function ($) {
 
-    // Constructor
+    /*
+     * Private scope
+     */
 
-    var Slidify = function (options) {
+    // Slide constructor
+    var Slide = function(data) {
+      this.data = data;
+      this.item = null;
+    },
+
+    /*
+     * Constructor
+     */
+    Slidify = function (options) {
 
       // Merging default options with those in parameter
       this.options = $.extend({
@@ -31,16 +42,30 @@
 
       // Loader
       init: function () {
+
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
+
+          var data, slide, i, l = this.options.data.length;
+
           // Store data in slides property
-          this.slides = this.options.data;
+          for(i = 0; i < l; i++) {
+            data = this.options.data[i];
+            if (data.getElementsByTagName !== undefined) {
+               data = $(data).clone();
+            }
+            slide = new Slide(data);
+            this.slides.push(slide);
+          }
+
           // Store length
           this.length = this.slides.length;
+
           // Check currentIndex
           if (this.slides[this.options.index] !== undefined) {
             this.index = this.options.index;
           }
+
         }
 
         this.trigger('init');

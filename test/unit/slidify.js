@@ -114,6 +114,9 @@ describe('slidify', function () {
     describe('init', function() {
 
       var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      var slides = jQ.map(data, function(d) {
+        return { data: d, item: null };
+      });
       var slider;
 
       beforeEach(function () {
@@ -138,7 +141,7 @@ describe('slidify', function () {
       it('must initalize fine with given data', function () {
         slider.init();
         expect(slider).to.have.property('index', slider.options.index);
-        expect(slider).to.have.property('slides').and.deep.equal(data);
+        expect(slider).to.have.property('slides').and.deep.equal(slides);
         expect(slider).to.have.property('length', data.length);
       });
 
