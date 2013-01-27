@@ -6,7 +6,7 @@ define('jquery', function () {
   return jQ;
 });
 
-describe('slidify', function () {
+describe('Slidify', function () {
 
   beforeEach(function (done) {
     jQ('body').load('base/test/fixtures/slifidy.html', function () {
@@ -110,9 +110,7 @@ describe('slidify', function () {
       var slider;
 
       beforeEach(function () {
-        slider = new window.slidify({
-          data: data
-        });
+        slider = new window.slidify({data: data});
       });
 
       it('must exist an #init function', function () {
@@ -131,7 +129,7 @@ describe('slidify', function () {
       it('must initalize fine with given data', function () {
         slider.init();
         expect(slider).to.have.property('index', slider.options.index);
-        expect(slider).to.have.property('slides').and.deep.equal(slides);
+        expect(slider).to.have.property('slides').and.is.a('array');
         expect(slider).to.have.property('length', data.length);
       });
 
@@ -145,11 +143,32 @@ describe('slidify', function () {
 
     });
 
-    describe('Traversing API', function() {
+    describe('Slides API', function() {
+
+      var dataStr = ['<div></div>'];
+      var dataObj = [{html: '<div></div>'}];
+      var slide = { html: '<div></div>', item: jQ('<div></div>') };
+      var slider;
+
+      it('must render Slide correctly with simple data', function () {
+        slider = new window.slidify({data: dataStr});
+        slider.init();
+        expect(slider.current()).to.be.deep.equal(slide);
+      });
+
+      it('must render Slide correctly with object data', function () {
+        slider = new window.slidify({data: dataObj});
+        slider.init();
+        expect(slider.current()).to.be.deep.equal(slide);
+      });
+
+    });
+
+    describe('Traversing API', function () {
 
       var data = [1, 2, 3];
       var slides = jQ.map(data, function(d) {
-        return { data: {html: d}, item: null };
+        return { html: d, item: { '0': d, length: 1 } };
       });
       var slider;
 

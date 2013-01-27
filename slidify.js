@@ -8,16 +8,10 @@
      * Private scope
      */
 
-    // Slide constructor
-    var Slide = function(data) {
-      this.data = data;
-      this.item = null;
-    },
-
     /*
      * Constructor
      */
-    Slidify = function (options) {
+    var Slidify = function (options) {
 
       // Merging default options with those in parameter
       this.options = $.extend({
@@ -47,22 +41,21 @@
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
 
-          var data, i, l = this.options.data.length, inDOM = this.$root.children();
+          var data, html, i, l = this.options.data.length, inDOM = this.$root.children();
 
           // Transform data into slide items and store them in slides property
           for(i = 0; i < l; i++) {
             data = this.options.data[i];
-            // If data is not an object, we convert it
-            if(typeof data !== 'object') {
-               data = {html: data};
-            }
             // Check if data is already in DOM
             // If DOM HTML <> data html we use DOM HTML to avoid blink effect
             if(inDOM[i - this.options.index] !== undefined) {
-               data.html = $(inDOM[i - this.index]).get(0);
+              if(typeof data !== 'object') {
+                data = {};
+              }
+              data.html = $(inDOM[i - this.index]).get(0);
             }
             // Store
-            this.slides.push(new Slide(data));
+            this.addSlide(data);
           }
 
           // Store length
@@ -78,13 +71,19 @@
         this.trigger('init');
       },
 
-      /*
-       * Traversing API
-       */
+      /* !Traversing API */
+
+      // Return the slide by given index
+      get: function (index) {
+        if(this.slides[index] !== undefined) {
+          return this.slides[index];
+        }
+        return null;
+      },
 
       // Return the current slide
       current: function () {
-        return this.slides[this.index];
+        return this.get(this.index);
       },
 
       // Move to the slide corresponding to given index
@@ -129,8 +128,29 @@
 
       },
 
-      /*
-       * Events API
+      /* !DOM & Slides internal methods */
+
+      // Add new slide to the slider
+      addSlide: function(data) {
+        this.slides.push(this.renderSlide(data));
+      },
+
+      // Render a slide with all good attributes
+      renderSlide: function(data) {
+        // If data is not an object, we convert it
+        if(typeof data !== 'object') {
+           data = {html: data};
+        }
+        // If data contains html, we build the item
+        if(data.html !== undefined) {
+          data.item = $(data.html);
+        }
+        return data;
+      },
+
+      /* !Event API */
+
+      /* Events API
        * Binding to non-dom elements doesn't work anymore since jQuery 1.4.4. :(
        * So we use the main DOM element to simulate event binding on the object
        */
