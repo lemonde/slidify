@@ -143,9 +143,9 @@ describe('Slidify', function () {
 
     describe('Slides API', function() {
 
-      var dataStr = ['<div></div>'];
-      var dataObj = [{html: '<div></div>'}];
-      var slide = { html: '<div></div>', item: jQ('<div></div>') };
+      var dataStr = ['<div>1</div>'];
+      var dataObj = [{html: '<div>1</div>'}];
+      var slide = { html: '<div>1</div>', item: jQ('<div>1</div>') };
       var slider;
 
       it('must render Slide correctly with simple data', function () {
@@ -157,6 +157,18 @@ describe('Slidify', function () {
       it('must render Slide correctly with object data', function () {
         slider = new window.slidify({data: dataObj});
         slider.init();
+        expect(slider.current()).to.be.deep.equal(slide);
+      });
+
+      it('must add & render Slide correctly', function () {
+        slider = new window.slidify();
+        slider.init();
+        expect(slider.length()).to.be.equal(0);
+        slider.addSlide('<div>1</div>');
+        expect(slider.length()).to.be.equal(1);
+        expect(slider.current()).to.be.deep.equal(slide);
+        slider.addSlide('<div>2</div>');
+        expect(slider.length()).to.be.equal(2);
         expect(slider.current()).to.be.deep.equal(slide);
       });
 

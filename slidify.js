@@ -57,11 +57,6 @@
             this.addSlide(data);
           }
 
-          // Check currentIndex
-          if (this.slides[this.options.index] !== undefined) {
-            this.index = this.options.index;
-          }
-
         }
 
         this.trigger('init');
@@ -134,6 +129,10 @@
       // Add new slide to the slider
       addSlide: function(data) {
         this.slides.push(this.renderSlide(data));
+        // Check Index
+        if (!this.index && this.slides[this.options.index] !== undefined) {
+          this.index = this.options.index;
+        }
       },
 
       // Render a slide with all good attributes
