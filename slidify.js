@@ -24,9 +24,9 @@
       this.progress = false;
 
       // DOM properties
-      this.$el = $('<div></div>');
+      this.$el = $('<div>');
 
-      // Events Mapping
+      // Events Method Mapping
       this.on = $.proxy(this.$el.on, this.$el);
       this.off = $.proxy(this.$el.off, this.$el);
       this.one = $.proxy(this.$el.one, this.$el);
@@ -44,7 +44,7 @@
     Slidify.prototype = {
 
       // Loader
-      init: function() {
+      init: function () {
         // Without data, we can't do anything
         if (this.options.data.length > 0) {
           // Store data in slides property
@@ -60,9 +60,12 @@
         this.trigger('init');
       },
 
-      // Traversing API
+      /*
+       * Traversing API
+       */
 
-      move: function(index, backward) {
+      // Move to the slide corresponding to given index
+      move: function (index, backward) {
 
         backward = backward || false;
 
@@ -73,7 +76,8 @@
         }
       },
 
-      next: function() {
+      // Move to next slide
+      next: function () {
 
         if (this.index === this.length - 1) {
            if (this.options.loop === true) {
@@ -86,7 +90,8 @@
 
       },
 
-      previous: function() {
+      // Move to previous slide
+      previous: function () {
 
         if (this.index === 0) {
            if (this.options.loop === true) {
@@ -110,7 +115,7 @@
   }
 
   if (typeof window.jQuery === 'function') {
-    // Export to global
+    // Expose to global
     if(window.slidify === undefined) {
       window.slidify = Slidify(window.jQuery);
     }
