@@ -48,7 +48,7 @@
 
           var data, slide, i, l = this.options.data.length;
 
-          // Store data in slides property
+          // Transform data into slide items and store them in slides property
           for(i = 0; i < l; i++) {
             data = this.options.data[i];
             if (data.getElementsByTagName !== undefined) {
