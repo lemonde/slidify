@@ -173,6 +173,20 @@
 
       },
 
+      // Detach slide in $root DOM
+      detach: function (indexes) {
+        var self = this;
+        if(typeof indexes !== 'object') {
+          indexes = [indexes];
+        }
+        $.each(indexes, function (k,v) {
+          slide = self.get(v);
+          if(slide && typeof slide.item !== undefined) {
+            slide.item.detach();
+          }
+        });
+      },
+
       /* !Event API */
 
       /* Events API

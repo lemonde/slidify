@@ -153,6 +153,7 @@ describe('Slidify', function () {
         expect(slider.addSlide).to.be.a('function');
         expect(slider.renderSlide).to.be.a('function');
         expect(slider.attach).to.be.a('function');
+        expect(slider.detach).to.be.a('function');
       });
 
       it('must render Slide correctly with simple data', function () {
@@ -183,9 +184,19 @@ describe('Slidify', function () {
         slider = new window.slidify({data: dataObj});
         slider.init();
 
-        expect(slider.$root.children().length).to.be.equal(0);
-        slider.attach([0]);
+        slider.attach(0);
         expect(slider.$root.children().length).to.be.equal(1);
+      });
+
+      it('must detach slides correctly', function() {
+        slider = new window.slidify({data: dataObj});
+        slider.init();
+
+        expect(slider.$root.children().length).to.be.equal(0);
+        slider.attach(0);
+        expect(slider.$root.children().length).to.be.equal(1);
+        slider.detach(0);
+        expect(slider.$root.children().length).to.be.equal(0);
       });
 
     });
