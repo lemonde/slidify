@@ -187,12 +187,6 @@ describe('Slidify', function () {
         expect(slider.get(2)).to.be.deep.equal(slides[2]);
       });
 
-      it('must return current slide on current() call', function () {
-        slider = new slidify({data: data});
-        slider.init();
-        expect(slider.current()).to.be.deep.equal(slides[0]);
-      });
-
       it('must return slides length on length() call', function () {
         slider = new slidify({data: data});
         slider.init();
@@ -214,6 +208,14 @@ describe('Slidify', function () {
           done();
         });
         slider.move(1);
+      });
+
+      it('must return good slide on current() call', function () {
+        slider = new slidify({data: data});
+        slider.init();
+        expect(slider.current()).to.be.deep.equal(slides[0]);
+        slider.move(1);
+        expect(slider.current()).to.be.deep.equal(slides[1]);
       });
 
       it('must increase current slide index on next() call', function () {
