@@ -20,56 +20,133 @@
         loop: false, // Loop mode
         delay: 5000, // Time between slides in ms
         effect: null, // Effect
-        root: $('<div>') // Root element
+        el: $('<div>') // DOM element
       }, options);
 
       // Slides properties
       this.slides = [];
-      this.index = null;
-      this.progress = false;
+      this.domIndexes = [];
+      this.length = 0;
+      this.index = this.options.index;
+      this.depth = 1;
 
-      // DOM properties
-      this.$root = this.options.root;
+      // DOM element
+      this.$el = $(this.options.el);
+      this.el = this.$el.get(0);
+
+      // Events
+      this.on = $.proxy(this.$el.on, this.$el);
+      this.one = $.proxy(this.$el.one, this.$el);
+      this.off = $.proxy(this.$el.off, this.$el);
     };
 
     Slidify.prototype = {
 
+      /* Event API */
+
+      // Execute all handlers and behaviors for the given event type.
+      trigger: function (event, data) {
+        if (typeof event === 'string') {
+          event = $.Event(event);
+        }
+
+        event.slider = this; // hum, not sure we really need this trick
+        return this.$el.trigger(event, data);
+      },
+
+      /* base API */
+
       // Loader
       init: function () {
 
-        // Without data, we can't do anything
-        if (this.options.data.length > 0) {
+        this.build();
 
-          var data, i, l = this.options.data.length, inDOM = this.$root.children();
-
-          // Transform data into slide items and store them in slides property
-          for (i = 0; i < l; i++) {
-            data = this.options.data[i];
-            // Check if data is already in DOM
-            // If DOM HTML <> data html we use DOM HTML to avoid blink effect
-            if (inDOM[i - this.options.index] !== undefined) {
-              if (typeof data !== 'object') {
-                data = {};
-              }
-              data.html = $(inDOM[i - this.index]).get(0);
-            }
-            // Store
-            this.addSlide(data);
-          }
-
+        if (this.length > 0) {
+          this.render();
         }
 
         this.trigger('init');
+      },
+
+      // Internal method to build slides
+      build: function () {
+        var i, l, $root, data;
+
+        this.slides = [];
+
+        // Data is an array
+        if ($.type(this.options.data) === 'array' && this.options.data.length > 0) {
+
+          l = this.options.data.length;
+
+          for (i = 0; i < l; i++) {
+
+            // Data contained in DOM is a priority
+            if (typeof this.$el.children()[i] !== 'undefined') {
+              this.slides.push({item: this.$el.children().eq(i)});
+            }
+            else {
+
+              data = this.options.data[i];
+
+              // of HTML strings
+              // of jQuery selectors
+              // of jQuery objects
+              if (typeof data === 'string' || typeof data.children !== 'undefined') {
+                this.slides.push({item: $(data)});
+              }
+
+              // of custom objects
+              else {
+                data.item = $(data.item);
+                this.slides.push(data);
+              }
+            }
+          }
+        }
+
+        // Data is contained in
+        else {
+          
+          // a jQuery selector
+          // a jQuery object
+          if (typeof this.options.data === 'string' || typeof this.options.data.children !== 'undefined') {
+            $root = $(this.options.data);
+          }
+
+          // the DOM element
+          else {
+            $root = this.$el;
+          }
+
+          l = $root.children().length;
+          for (i = 0; i < l; i++) {
+            this.slides.push({item: $root.children().eq(i)});
+          }
+        }
+
+        this.length = this.slides.length;
+      },
+
+      // Compute range index
+      range: function (index) {
+        if (index >= this.length) {
+          return index % this.length;
+        }
+
+        if (index < 0) {
+          return (this.length + index % this.length) % this.length;
+        }
+
+        return index;
       },
 
       /* !Traversing API */
 
       // Return the slide by given index
       get: function (index) {
-        if (this.slides[index] !== undefined) {
-          return this.slides[index];
-        }
-        return null;
+        index = this.range(index);
+        return this.slides[index];
       },
 
       // Return the current slide
@@ -77,28 +154,25 @@
         return this.get(this.index);
       },
 
-      // Return number of slides
-      length: function () {
-        return this.slides.length;
-      },
-
       // Move to the slide corresponding to given index
       move: function (index, backward) {
-
         backward = backward || false;
 
-        if (!this.progress) {
-          this.progress = true;
-          this.index = index;
-          this.progress = false;
-
-          this.trigger('move');
+        if (backward) {
+          this.prependUpTo(index);
         }
+        else {
+          this.appendUpTo(index);
+        }
+
+        this.index = index;
+
+        this.trigger('move');
       },
 
       // Move to next slide
       next: function () {
-        if (this.index === this.length() - 1) {
+        if (this.index === this.length - 1) {
           if (this.options.loop === true) {
             this.move(0);
           }
@@ -113,7 +187,7 @@
 
         if (this.index === 0) {
           if (this.options.loop === true) {
-            this.move(this.length() - 1, true);
+            this.move(this.length - 1, true);
           }
         }
         else {
@@ -122,101 +196,71 @@
 
       },
 
-      /* !DOM & Slides internal methods */
+      /* DOM Manipulation API */
 
-      // Add new slide to the slider
-      addSlide: function (data) {
-        this.slides.push(this.renderSlide(data));
-        // Check Index
-        if (!this.index && this.slides[this.options.index] !== undefined) {
-          this.index = this.options.index;
-          //this.attach(this.index);
+      // Render slidify at current index
+      render: function () {
+        var i, index, indexes = [];
+
+        // Empty slider
+        this.empty();
+
+        // Append current index
+        indexes.push(this.index);
+
+        // Append others index
+        for (i = 1; i < this.depth + 1; i++) {
+          indexes.unshift(this.range(this.index - i));
+          indexes.push(this.range(this.index + i));
+        }
+
+        // Append slides
+        for (i = 0; i < indexes.length; i++) {
+          index = indexes[i];
+          this.attach(index, 'append');
         }
       },
 
-      // Render a slide with all good attributes
-      renderSlide: function (data) {
-        // If data is not an object, we convert it
-        if (typeof data !== 'object') {
-          data = {html: data};
-        }
-        // If data contains html, we build the item
-        if (data.html !== undefined) {
-          data.item = $(data.html);
-        }
-        return data;
+      // Empty slides
+      empty: function () {
+        this.$el.empty();
+        this.domIndexes = [];
       },
 
-      // Attach slide in $root DOM
-      attach: function (indexes, params) {
+      // Attach slide to DOM by index
+      attach: function (index, method) {
+        var item = this.get(index).item;
 
-        var slide, method, self = this;
-
-        params = $.extend({
-          'append': true,
-          'hidden': true
-        }, params);
-
-        if (typeof indexes !== 'object') {
-          indexes = [indexes];
+        if (this.domIndexes.indexOf(index)) {
+          item = item.clone();
         }
 
-        $.each(indexes, function (k, v) {
-          slide = self.get(v);
-          if (slide && typeof slide.item !== 'undefined') {
-            slide.item.toggle(params.hidden !== true);
-            method = (params.append === true) ? 'append' : 'preprend';
-            self.$root[method](slide.item);
+        this.$el[method](item);
+        this.domIndexes.push(index);
+      },
+
+      // Append slides up to index
+      appendUpTo: function (index) {
+        var i;
+
+        index = this.range(index);
+
+        for (i = this.index + this.depth + 1; i <= index; i++) {
+          this.attach(i, 'append');
+        }
+      },
+
+      // Prepend slides up to index
+      prependUpTo: function (index) {
+        var i;
+
+        index = this.range(index);
+
+        for (i = this.range(this.index - this.depth - 1); i >= index; i--) {
+          if (index !== this.index) {
+            this.attach(i, 'prepend');
           }
-        });
-
-      },
-
-      // Detach slide in $root DOM
-      detach: function (indexes) {
-        var self = this, slide;
-
-        if (typeof indexes !== 'object') {
-          indexes = [indexes];
         }
-        $.each(indexes, function (k, v) {
-          slide = self.get(v);
-          if (slide && typeof slide.item !== 'undefined') {
-            slide.item.detach();
-          }
-        });
-      },
-
-      /* !Event API */
-
-      /* Events API
-       * Binding to non-dom elements doesn't work anymore since jQuery 1.4.4. :(
-       * So we use the main DOM element to simulate event binding on the object
-       */
-
-      // Attach an event handler function for one or more events.
-      on: function (types, selector, data, fn) {
-        this.$root.on(types, selector, data, fn);
-      },
-
-      // Remove an event handler.
-      off: function (types, selector, fn) {
-        this.$root.off(types, selector, fn);
-      },
-
-      // Attach a handler to an event executed only one time.
-      one: function (types, selector, data, fn) {
-        this.$root.one(types, selector, data, fn);
-      },
-
-      // Execute all handlers and behaviors for the given event type.
-      trigger: function (event, data) {
-        if (typeof event === 'string') {
-          event = $.Event(event);
-        }
-
-        event.slider = this; // hum, not sure we really need this trick
-        return this.$root.trigger(event, data);
       }
 
     };
