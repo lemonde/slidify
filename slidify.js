@@ -169,6 +169,8 @@
         this.index = index;
 
         this.trigger('move');
+
+        this.render();
       },
 
       // Move to next slide
@@ -181,7 +183,6 @@
         else {
           this.move(this.index + 1);
         }
-        this.render();
       },
 
       // Move to previous slide
