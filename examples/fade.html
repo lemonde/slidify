@@ -19,7 +19,7 @@
     <div class="wrapper">
 
       <ul class="slider">
-        <li style="opacity:1"><img src="medias/sunset/1.jpg" width="800" height="534"></li>
+        <li><img src="medias/sunset/1.jpg" width="800" height="534"></li>
         <li><img src="medias/sunset/2.jpg" width="800" height="534"></li>
         <li><img src="medias/sunset/3.jpg" width="800" height="534"></li>
         <li><img src="medias/sunset/4.jpg" width="800" height="534"></li>
@@ -32,7 +32,7 @@
         <li><img src="medias/sunset/11.jpg" width="800" height="534"></li>
         <li><img src="medias/sunset/12.jpg" width="800" height="534"></li>
       </ul>
-      <a class="button prev"><span><i>&laquo;</i></span></a>
+      <a class="button previous"><span><i>&laquo;</i></span></a>
       <a class="button next"><span><i>&raquo;</i></span></a>
 
     </div>
@@ -46,13 +46,24 @@
 </div>
 
 <script>
-require(["slidify"], function(slidify) {
+require(["slidify"], function (slidify) {
 
   var fader = new slidify({
+    loop: true,
+    depth: 0,
     el: $('.slider')
   });
 
   fader.init();
+
+  // Manually add prev & next actions before implementing plugins
+  $('.button.previous').on('click', function () {
+    fader.previous();
+  })
+
+  $('.button.next').on('click', function () {
+    fader.next();
+  })
 
 });
 </script>

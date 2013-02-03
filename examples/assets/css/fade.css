@@ -67,15 +67,15 @@ width:800px;
     overflow:hidden;
     }
 
-    .diaporama .wrapper .prev {
+    .diaporama .wrapper .previous {
     right:auto;
     }
 
-    .diaporama .wrapper .prev span {
+    .diaporama .wrapper .previous span {
     left:0;
     }
 
-    .diaporama .wrapper .prev i {
+    .diaporama .wrapper .previous i {
     background-position:-11px 0;
     }
 
@@ -91,7 +91,7 @@ width:800px;
 
     .diaporama .slider li {
     position:absolute;
-    opacity: 0;
+    /* opacity: 0; */
     transition: opacity .2s ease-out;
       -moz-transition: opacity .2s ease-out;
       -webkit-transition: opacity .2s ease-out;
