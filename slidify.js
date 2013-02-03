@@ -17,6 +17,7 @@
       this.options = $.extend({
         data: [], // JSON data or DOM objects
         index: 0, // Initial index
+        depth: 1, // Initial depth
         loop: false, // Loop mode
         delay: 5000, // Time between slides in ms
         effect: null, // Effect
@@ -28,7 +29,7 @@
       this.domIndexes = [];
       this.length = 0;
       this.index = this.options.index;
-      this.depth = 1;
+      this.depth = this.options.depth;
 
       // DOM element
       this.$el = $(this.options.el);
