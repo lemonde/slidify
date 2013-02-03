@@ -181,6 +181,7 @@
         else {
           this.move(this.index + 1);
         }
+        this.render();
       },
 
       // Move to previous slide
