@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Slidify Examples - Fade</title>
+
+  <link type="text/css" rel="stylesheet" href="assets/css/fade.css">
+  <script data-main="assets/js/main" src="../components/requirejs/require.js"></script>
+
+</head>
+<body>
+
+<div class="page">
+
+  <section class="diaporama">
+
+    <h1>Sunset</h1>
+
+    <div class="wrapper">
+
+      <ul class="slider">
+        <li style="opacity:1"><img src="medias/sunset/1.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/2.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/3.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/4.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/5.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/6.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/7.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/8.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/9.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/10.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/11.jpg" width="1024" height="683"></li>
+        <li><img src="medias/sunset/12.jpg" width="1024" height="683"></li>
+      </ul>
+      <a class="button prev"><span><i>&laquo;</i></span></a>
+      <a class="button next"><span><i>&raquo;</i></span></a>
+
+    </div>
+
+    <div class="controls">
+      <span class="button diminuer"></span>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+require(["slidify"], function(slidify) {
+
+  var fader = new slidify({
+    el: $('.slider')
+  });
+
+  fader.init();
+
+});
+</script>
+
+</body>
+</html>
