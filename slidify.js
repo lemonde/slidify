@@ -108,7 +108,7 @@
 
         // Data is contained in
         else {
-          
+
           // a jQuery selector
           // a jQuery object
           if (typeof this.options.data === 'string' || typeof this.options.data.children !== 'undefined') {
