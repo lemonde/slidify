@@ -1,0 +1,119 @@
+body {
+  background: #f4f4f4;
+  font-family: sans-serif;
+  font-size: 100%;
+}
+
+.page {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+/* !diaporama */
+
+.diaporama {
+  margin: 0 auto;
+  padding: 8px 0;
+  width: 1000px;
+  overflow: hidden;
+  height: 534px;
+}
+
+.diaporama h1 {
+  color: #000;
+  font-size: 2rem;
+  margin: 0 0 8px;
+}
+
+.diaporama .wrapper {
+  position: relative;
+  box-shadow: 0 0 3px #888;
+}
+
+.diaporama .wrapper .button {
+  position: absolute;
+  width: 150px;
+  height: 534px;
+  top: 0;
+  cursor: pointer;
+  z-index: 1;
+  right: 0;
+}
+
+.diaporama .wrapper .button span {
+  position: relative;
+  background: #fefefe;
+  display: block;
+  width: 40px;
+  height: 100%;
+  opacity: .1;
+  left: 110px;
+  transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -webkit-transition: opacity .2s ease-out;
+}
+
+.diaporama .wrapper .button:hover span {
+  opacity:.8;
+}
+
+.diaporama .wrapper .button i {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 21px;
+  margin: -10.5px 14px 0;
+  display: block;
+  background: url(../img/sprite.png) no-repeat;
+  text-indent: -21px;
+  overflow: hidden;
+}
+
+.diaporama .wrapper .previous {
+  right: auto;
+}
+
+.diaporama .wrapper .previous span {
+  left: 0;
+}
+
+.diaporama .wrapper .previous i {
+  background-position: -11px 0;
+}
+
+.diaporama .slider {
+  background: #111;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 534px;
+  width: 4000px;
+  left: -1500px;
+  position: absolute;
+}
+
+.diaporama .slider.right {
+  left: -2300px;
+}
+
+.diaporama .slider.left {
+  left: -700px;
+}
+
+.diaporama .slider li {
+  float: left;
+}
+
+.diaporama img {
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  transition: all .2s ease-out;
+  -moz-transition: all .2s ease-out;
+  -webkit-transition: all .2s ease-out;
+}
