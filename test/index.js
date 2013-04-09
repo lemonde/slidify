@@ -1,1 +1,0 @@
-require('testacustart').start({config: __dirname + '/testacular.conf.js'});

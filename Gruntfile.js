@@ -9,12 +9,13 @@ module.exports = function(grunt) {
       all: ['slidify.js', 'test/**/*.js']
     },
 
-    testacular: {
+    karma: {
       unit: {
-        configFile: 'test/testacular.conf.js'
+        configFile: 'test/karma.conf.js'
       },
       single: {
-        configFile: 'test/testacular.conf.js',
+        configFile: 'test/karma.conf.js',
+        browsers: ['PhantomJS'],
         singleRun: true
       }
     },
@@ -44,10 +45,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('gruntacular');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('default', ['jshint', 'testacular:single', 'copy', 'uglify']);
   grunt.registerTask('lint', ['jshint']);
-  grunt.registerTask('test', ['testacular']);
-  grunt.registerTask('test:single', ['testacular:single']);
+  grunt.registerTask('test', ['karma']);
+  grunt.registerTask('test:single', ['karma:single']);
 };
