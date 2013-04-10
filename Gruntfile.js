@@ -47,7 +47,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
 
-  grunt.registerTask('default', ['jshint', 'testacular:single', 'copy', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'test:single', 'copy', 'uglify']);
   grunt.registerTask('lint', ['jshint']);
   grunt.registerTask('test', ['karma']);
   grunt.registerTask('test:single', ['karma:single']);
