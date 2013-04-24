@@ -66,35 +66,43 @@
     // Manually add prev & next actions before implementing plugins
     $('.button.previous').on('click', function () {
       $('.slider')
-        .css('-webkit-transition', 'left 1s ease-in')
-        .addClass('left')
+        .css({
+          '-webkit-transition': '-webkit-transform .4s ease-out',
+          '-webkit-transform': 'translateX(800px)'
+        })
         .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
-          if (event.originalEvent.propertyName !== 'left') {
+          if (event.originalEvent.propertyName !== '-webkit-transform') {
             return;
           }
 
           slider.previous();
 
-          $(this)
-            .css('-webkit-transition', 'none')
-            .removeClass('left');
+          $(this).css({
+            '-webkit-transition': 'none',
+            '-webkit-transform': 'translateX(0)'
+          });
         });
-    })
+    });
 
     $('.button.next').on('click', function () {
+
       $('.slider')
-        .css('-webkit-transition', 'left 1s ease-in')
-        .addClass('right')
+        .css({
+          '-webkit-transition': '-webkit-transform .4s ease-out',
+          '-webkit-transform': 'translateX(-800px)'
+        })
         .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
-          if (event.originalEvent.propertyName !== 'left') {
+          if (event.originalEvent.propertyName !== '-webkit-transform') {
             return;
           }
 
           slider.next();
 
-          $(this)
-            .css('-webkit-transition', 'none')
-            .removeClass('right');
+          $(this).css({
+            '-webkit-transition': 'none',
+            '-webkit-transform': 'translateX(0)'
+          });
+
         });
     });
 

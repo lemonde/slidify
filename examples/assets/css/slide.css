@@ -93,14 +93,6 @@ body {
   position: absolute;
 }
 
-.diaporama .slider.right {
-  left: -2300px;
-}
-
-.diaporama .slider.left {
-  left: -700px;
-}
-
 .diaporama .slider li {
   float: left;
 }
