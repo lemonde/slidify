@@ -36,69 +36,69 @@
 </div>
 
 <script>
-require(["slidify"], function (slidify) {
+  require(["slidify"], function (slidify) {
 
-  // All slides, included the one already in DOM
-  var data = [
-    '<li><img src="medias/sunset/1.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/2.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/3.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/4.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/5.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/6.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/7.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/8.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/9.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/10.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/11.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/12.jpg" width="800" height="534"></li>'
-  ]
+    // All slides, included the one already in DOM
+    var data = [
+      '<li><img src="medias/sunset/1.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/2.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/3.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/4.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/5.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/6.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/7.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/8.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/9.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/10.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/11.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/12.jpg" width="800" height="534"></li>'
+    ]
 
-  var slider = new slidify({
-    data: data,
-    loop: true,
-    depth: 2,
-    el: $('.slider')
-  });
-
-  slider.init();
-
-  // Manually add prev & next actions before implementing plugins
-  $('.button.previous').on('click', function () {
-    $('.slider')
-    .css('-webkit-transition', 'left 1s ease-in')
-    .addClass('left')
-    .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
-      if (event.originalEvent.propertyName !== 'left') {
-        return ;
-      }
-
-      slider.previous();
-
-      $(this)
-      .css('-webkit-transition', 'none')
-      .removeClass('left');
+    var slider = new slidify({
+      data: data,
+      loop: true,
+      depth: 2,
+      el: $('.slider')
     });
-  })
 
-  $('.button.next').on('click', function () {
-    $('.slider')
-    .css('-webkit-transition', 'left 1s ease-in')
-    .addClass('right')
-    .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
-      if (event.originalEvent.propertyName !== 'left') {
-        return ;
-      }
+    slider.init();
 
-      slider.next();
+    // Manually add prev & next actions before implementing plugins
+    $('.button.previous').on('click', function () {
+      $('.slider')
+        .css('-webkit-transition', 'left 1s ease-in')
+        .addClass('left')
+        .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
+          if (event.originalEvent.propertyName !== 'left') {
+            return;
+          }
 
-      $(this)
-      .css('-webkit-transition', 'none')
-      .removeClass('right');
+          slider.previous();
+
+          $(this)
+            .css('-webkit-transition', 'none')
+            .removeClass('left');
+        });
+    })
+
+    $('.button.next').on('click', function () {
+      $('.slider')
+        .css('-webkit-transition', 'left 1s ease-in')
+        .addClass('right')
+        .one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (event) {
+          if (event.originalEvent.propertyName !== 'left') {
+            return;
+          }
+
+          slider.next();
+
+          $(this)
+            .css('-webkit-transition', 'none')
+            .removeClass('right');
+        });
     });
-  });
 
-});
+  });
 </script>
 
 </body>
