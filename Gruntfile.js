@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   grunt.initConfig({
 
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     copy: {
       all: {
         files: {
-          'build/' : 'slidify.js'
+          'build/': 'slidify.js'
         }
       }
     },
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 
       all: {
         files: {
-          'build/slidify.min.js' : ['slidify.js']
+          'build/slidify.min.js': ['slidify.js']
         }
       }
     }

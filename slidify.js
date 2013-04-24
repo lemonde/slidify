@@ -2,13 +2,11 @@
 
 (function (window, undefined) {
 
+  "use strict";
+
   var make = function ($) {
 
-    /*
-     * Private scope
-     */
-
-    /*
+    /**
      * Constructor
      */
     var Slidify = function (options) {
@@ -43,7 +41,9 @@
 
     Slidify.prototype = {
 
-      /* Event API */
+      /**
+       *  Event API
+       */
 
       // Execute all handlers and behaviors for the given event type.
       trigger: function (event, data) {
@@ -55,7 +55,9 @@
         return this.$el.trigger(event, data);
       },
 
-      /* base API */
+      /**
+       *  Base API
+       */
 
       // Loader
       init: function () {
@@ -96,7 +98,6 @@
               if (typeof data === 'string' || typeof data.children !== 'undefined') {
                 this.slides.push({item: $(data)});
               }
-
               // of custom objects
               else {
                 data.item = $(data.item);
@@ -142,7 +143,9 @@
         return index;
       },
 
-      /* !Traversing API */
+      /**
+       * Traversing API
+       */
 
       // Return the slide by given index
       get: function (index) {
@@ -199,7 +202,9 @@
 
       },
 
-      /* DOM Manipulation API */
+      /**
+       * DOM Manipulation API
+       */
 
       // Render slidify at current index
       render: function () {
@@ -273,7 +278,9 @@
 
   // Expose slidify as an AMD module
   if (typeof define === 'function' && define.amd) {
-    define('slidify', ['jquery'], function ($) { return make($); });
+    define('slidify', ['jquery'], function ($) {
+      return make($);
+    });
   }
 
   if (typeof window.jQuery === 'function') {

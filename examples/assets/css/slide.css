@@ -9,7 +9,7 @@ body {
   margin: 0 auto;
 }
 
-/* !diaporama */
+/* diaporama */
 
 .diaporama {
   margin: 0 auto;
@@ -55,7 +55,7 @@ body {
 }
 
 .diaporama .wrapper .button:hover span {
-  opacity:.8;
+  opacity: .8;
 }
 
 .diaporama .wrapper .button i {

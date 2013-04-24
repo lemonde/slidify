@@ -36,43 +36,43 @@
 </div>
 
 <script>
-require(["slidify"], function (slidify) {
+  require(["slidify"], function (slidify) {
 
-  // All slides, included the one already in DOM
-  var data = [
-    '<li><img src="medias/sunset/1.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/2.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/3.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/4.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/5.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/6.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/7.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/8.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/9.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/10.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/11.jpg" width="800" height="534"></li>',
-    '<li><img src="medias/sunset/12.jpg" width="800" height="534"></li>'
-  ]
+    // All slides, included the one already in DOM
+    var data = [
+      '<li><img src="medias/sunset/1.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/2.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/3.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/4.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/5.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/6.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/7.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/8.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/9.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/10.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/11.jpg" width="800" height="534"></li>',
+      '<li><img src="medias/sunset/12.jpg" width="800" height="534"></li>'
+    ]
 
-  var fader = new slidify({
-    data: data,
-    loop: true,
-    depth: 0,
-    el: $('.slider')
+    var fader = new slidify({
+      data: data,
+      loop: true,
+      depth: 0,
+      el: $('.slider')
+    });
+
+    fader.init();
+
+    // Manually add prev & next actions before implementing plugins
+    $('.button.previous').on('click', function () {
+      fader.previous();
+    })
+
+    $('.button.next').on('click', function () {
+      fader.next();
+    })
+
   });
-
-  fader.init();
-
-  // Manually add prev & next actions before implementing plugins
-  $('.button.previous').on('click', function () {
-    fader.previous();
-  })
-
-  $('.button.next').on('click', function () {
-    fader.next();
-  })
-
-});
 </script>
 
 </body>
