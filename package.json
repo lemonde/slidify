@@ -30,7 +30,7 @@
     }
   ],
   "scripts": {
-    "test": "karma start --single-run --browsers PhantomJS ./test/karma.conf.js",
+    "test": "grunt test:single",
     "install": "bower install"
   },
   "repository": {
