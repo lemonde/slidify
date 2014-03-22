@@ -12,9 +12,9 @@ files = [
   MOCHA_ADAPTER,
   'node_modules/chai/chai.js',
 
-  'components/jquery/jquery.js',
-  'components/requirejs/require.js',
-  'slidify.js',
+  'examples/components/jquery/dist/jquery.min.js',
+  'examples/components/requirejs/require.js',
+  'dist/slidify.js',
 
   {pattern: 'test/fixtures/**/*', included: false, watched: true, served: true},
   'test/unit/**/*'
