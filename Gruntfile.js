@@ -23,7 +23,7 @@ module.exports = function (grunt) {
     copy: {
       all: {
         files: {
-          'build/': 'slidify.js'
+          'dist/': 'slidify.js'
         }
       }
     },
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
       all: {
         files: {
-          'build/slidify.min.js': ['slidify.js']
+          'dist/slidify.min.js': ['slidify.js']
         }
       }
     }
