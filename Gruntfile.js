@@ -11,12 +11,14 @@ module.exports = function (grunt) {
 
     karma: {
       unit: {
-        configFile: 'test/karma.conf.js'
+        configFile: 'test/karma.conf.js',
+        autoWatch: true,
+        browsers: ['PhantomJS']
       },
       single: {
         configFile: 'test/karma.conf.js',
-        browsers: ['Chrome'],
-        singleRun: true
+        singleRun: true,
+        browsers: ['PhantomJS']
       }
     },
 

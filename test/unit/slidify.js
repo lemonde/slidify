@@ -1,9 +1,4 @@
 /*jshint undef:false expr:true */
-var expect = chai.expect;
-
-define('jquery', function () {
-  return $;
-});
 
 describe('Slidify', function () {
 
